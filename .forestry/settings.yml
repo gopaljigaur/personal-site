@@ -1,0 +1,58 @@
+---
+new_page_extension: md
+auto_deploy: false
+admin_path: ''
+webhook_url: 
+sections:
+- type: heading
+  label: Posts
+- type: directory
+  path: data/project
+  label: Projects
+  create: documents
+  match: "**/*"
+  new_doc_ext: mdx
+  templates:
+  - projects
+- type: directory
+  path: data/blog
+  label: Blogs
+  create: documents
+  match: "**/*"
+  new_doc_ext: mdx
+- type: heading
+  label: Pages
+- type: document
+  path: data/about.mdx
+  label: About
+- type: directory
+  path: data/timeline
+  label: Timeline
+  create: documents
+  match: "**/*"
+  new_doc_ext: mdx
+  templates:
+  - timeline_year
+- type: heading
+  label: Data
+- type: document
+  path: data/metadata/person.mdx
+  label: Person
+- type: document
+  path: data/metadata/social.mdx
+  label: Social
+- type: document
+  path: data/metadata/meta.mdx
+  label: Meta
+upload_dir: public/static/images
+public_path: "/static/images"
+front_matter_path: "/public/static/logos"
+use_front_matter_path: true
+file_template: ":filename:"
+build:
+  preview_output_directory: ".next"
+  install_dependencies_command: yarn install
+  preview_docker_image: forestryio/node:16
+  mount_path: "/srv"
+  working_dir: "/srv"
+  instant_preview_command: yarn dev

@@ -1,0 +1,24 @@
+---
+label: person-mdx
+hide_body: true
+display_field: name
+fields:
+- type: text
+  name: name
+  label: name
+- name: short_bio
+  type: text
+  config:
+    required: false
+  label: Short Bio
+- type: text
+  name: role
+  label: role
+- type: text
+  name: organization
+  label: organization
+- type: text
+  name: avatar
+  label: avatar
+pages:
+- data/metadata/person.mdx

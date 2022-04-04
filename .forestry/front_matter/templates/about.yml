@@ -1,0 +1,33 @@
+---
+label: about
+hide_body: true
+fields:
+- name: bio
+  type: textarea
+  default: ''
+  config:
+    required: false
+    wysiwyg: true
+    schema:
+      format: markdown
+  label: bio
+- name: education
+  type: textarea
+  default: ''
+  config:
+    required: false
+    wysiwyg: true
+    schema:
+      format: markdown
+  label: education
+- name: work
+  type: textarea
+  default: ''
+  config:
+    required: false
+    wysiwyg: true
+    schema:
+      format: markdown
+  label: work
+pages:
+- data/about.mdx

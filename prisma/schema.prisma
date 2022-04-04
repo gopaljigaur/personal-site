@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["referentialIntegrity"]
+  binaryTargets = ["native", "darwin", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+  referentialIntegrity = "prisma"
+}
+
+model views_blogs {
+  slug  String @id @db.VarChar(128)
+  count BigInt @default(1)
+}
+
+model views_projects {
+  slug  String @id @db.VarChar(128)
+  count BigInt @default(1)
+}

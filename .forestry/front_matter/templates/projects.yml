@@ -1,0 +1,34 @@
+---
+label: projects
+hide_body: false
+display_field: title
+fields:
+- type: text
+  name: title
+  label: title
+  config:
+    required: true
+- type: text
+  name: summary
+  label: summary
+  config:
+    required: true
+- type: text
+  name: url
+  label: url
+  config:
+    required: true
+- type: text
+  name: source_url
+  label: source_url
+- name: logo
+  type: text
+  config:
+    required: true
+  label: logo
+- name: logo_upload
+  type: file
+  config:
+    maxSize: 1
+  label: Logo Upload
+  description: Upload the logo file if it doesn't exist

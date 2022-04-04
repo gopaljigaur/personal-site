@@ -1,0 +1,8 @@
+---
+label: timeline_year
+hide_body: false
+display_field: year
+fields:
+- type: text
+  name: year
+  label: year
