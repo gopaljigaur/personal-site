@@ -30,7 +30,7 @@ module.exports = withContentlayer()({
       },
       {
         source: '/email',
-        destination: 'mailto:contact@gopalji.ml',
+        destination: 'mailto:contact@gopalji.me',
         permanent: true
       }
     ]
