@@ -1,6 +1,6 @@
-![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=gopalji-ml-gopaljigaur&style=for-the-badge)
+![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=personal-site-gopaljigaur&style=for-the-badge)
 
-# Personal Website ([gopalji.ml](https://gopalji.ml))
+# Personal Website ([gopalji.ml](https://gopalji.me))
 This is a repository containing the source files for my personel website.
 
 ## Built Using
@@ -17,10 +17,10 @@ This is a repository containing the source files for my personel website.
 - `data/*` - MDX data that is used for blogs, projects, metadata, about-page, newsletters *(not available yet)*, and code snippets *(not available yet)*.
 - `layouts/*` - The different page layouts each MDX category (blog, project, newsletter *(not available yet)*, snippets *(not available yet)*) uses.
 - `lib/*` - A collection of helpful utilities or code for external services.
-- `pages/api/*` - API routes powering [`/dashboard`](https://gopalji.ml/dashboard), blog and project views, contact-form, and fun-facts.
+- `pages/api/*` - API routes powering [`/dashboard`](https://gopalji.me/dashboard), blog and project views, contact-form, and fun-facts.
 - `pages/blog/*` - Static pre-rendered blog pages using MDX.
 - `pages/project/*` - Static pre-rendered project README pages using MDX.
-- `pages/dashboard` - [Personal dashboard](https://gopalji.ml/dashboard) tracking metrics.
+- `pages/dashboard` - [Personal dashboard](https://gopalji.me/dashboard) tracking metrics.
 - `pages/*` - All other static pages.
 - `prisma/*` - Prisma schema, which uses a PlanetScale MySQL database, and DB init script.
 - `public/*` - Static assets including fonts, logos and images.
@@ -41,7 +41,7 @@ $ yarn dev
 ## Usage
 
 - Replace data in `data/metadata/*`, `public/*` and `next.config.js` before publishing.
-- You can contact me [here](https://gopalji.ml/contact), in case you need help in implementing the project.
+- You can contact me [here](https://gopalji.me/contact), in case you need help in implementing the project.
 - Crediting the author is highly appreciated.
 
 ---
