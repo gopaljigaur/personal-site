@@ -40,10 +40,14 @@ export default function Container(props) {
   useEffect(() => {
     if(mounted) {
       if (window.scrollY > 8) {
-        setShowBorder(true);
+        setTimeout(() => {
+          setShowBorder(true);
+        }, 300)
       }
       if (window.scrollY > 400) {
-        setShowScrollTop(true);
+        setTimeout(() => {
+          setShowScrollTop(true);
+        }, 300)
       }
       window.addEventListener("scroll", () => {
         if (window.scrollY > 8) {
