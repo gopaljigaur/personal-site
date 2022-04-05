@@ -104,24 +104,51 @@ export default function Container(props) {
         {meta.date && (
           <meta property="article:published_time" content={meta.date} />
         )}
-        <link href={`/static/favicons/${ resolvedTheme }/favicon.ico`} rel="shortcut icon" />
-        <link href={`/static/favicons/${ resolvedTheme }/manifest.json`} rel="manifest" />
-        <link rel="apple-touch-icon" sizes="57x57" href={`/static/favicons/${ resolvedTheme }/apple-icon-57x57.png`} />
-        <link rel="apple-touch-icon" sizes="60x60" href={`/static/favicons/${ resolvedTheme }/apple-icon-60x60.png`} />
-        <link rel="apple-touch-icon" sizes="72x72" href={`/static/favicons/${ resolvedTheme }/apple-icon-72x72.png`} />
-        <link rel="apple-touch-icon" sizes="76x76" href={`/static/favicons/${ resolvedTheme }/apple-icon-76x76.png`} />
-        <link rel="apple-touch-icon" sizes="114x114" href={`/static/favicons/${ resolvedTheme }/apple-icon-114x114.png`} />
-        <link rel="apple-touch-icon" sizes="120x120" href={`/static/favicons/${ resolvedTheme }/apple-icon-120x120.png`} />
-        <link rel="apple-touch-icon" sizes="144x144" href={`/static/favicons/${ resolvedTheme }/apple-icon-144x144.png`} />
-        <link rel="apple-touch-icon" sizes="152x152" href={`/static/favicons/${ resolvedTheme }/apple-icon-152x152.png`} />
-        <link rel="apple-touch-icon" sizes="180x180" href={`/static/favicons/${ resolvedTheme }/apple-icon-180x180.png`} />
-        <link rel="icon" type="image/png" sizes="192x192"  href={`/static/favicons/${ resolvedTheme }/android-icon-192x192.png`} />
-        <link rel="icon" type="image/png" sizes="32x32" href={`/static/favicons/${ resolvedTheme }/favicon-32x32.png`} />
-        <link rel="icon" type="image/png" sizes="96x96" href={`/static/favicons/${ resolvedTheme }/favicon-96x96.png`} />
-        <link rel="icon" type="image/png" sizes="16x16" href={`/static/favicons/${ resolvedTheme }/favicon-16x16.png`} />
-        <meta name="msapplication-TileColor" content={ resolvedTheme === 'dark' ? '#000000' : '#ffffff' } />
-        <meta name="msapplication-TileImage" content={`/static/favicons/${ resolvedTheme }/ms-icon-144x144.png`} />
-        <meta name="theme-color" content={ resolvedTheme === 'dark' ? '#000000' : '#ffffff' } />
+        {
+          resolvedTheme ? (
+            <>
+            <link href={`/static/favicons/${resolvedTheme}/favicon.ico`} rel="shortcut icon" />
+            <link href={`/static/favicons/${resolvedTheme}/site.webmanifest`} rel="manifest" />
+            <link rel="apple-touch-icon" sizes="57x57" href={`/static/favicons/${resolvedTheme}/apple-icon-57x57.png`} />
+            <link rel="apple-touch-icon" sizes="60x60" href={`/static/favicons/${resolvedTheme}/apple-icon-60x60.png`} />
+            <link rel="apple-touch-icon" sizes="72x72" href={`/static/favicons/${resolvedTheme}/apple-icon-72x72.png`} />
+            <link rel="apple-touch-icon" sizes="76x76" href={`/static/favicons/${resolvedTheme}/apple-icon-76x76.png`} />
+            <link rel="apple-touch-icon" sizes="114x114" href={`/static/favicons/${resolvedTheme}/apple-icon-114x114.png`} />
+            <link rel="apple-touch-icon" sizes="120x120" href={`/static/favicons/${resolvedTheme}/apple-icon-120x120.png`} />
+            <link rel="apple-touch-icon" sizes="144x144" href={`/static/favicons/${resolvedTheme}/apple-icon-144x144.png`} />
+            <link rel="apple-touch-icon" sizes="152x152" href={`/static/favicons/${resolvedTheme}/apple-icon-152x152.png`} />
+            <link rel="apple-touch-icon" sizes="180x180" href={`/static/favicons/${resolvedTheme}/apple-icon-180x180.png`} />
+            <link rel="icon" type="image/png" sizes="192x192"  href={`/static/favicons/${resolvedTheme}/android-icon-192x192.png`} />
+            <link rel="icon" type="image/png" sizes="32x32" href={`/static/favicons/${resolvedTheme}/favicon-32x32.png`} />
+            <link rel="icon" type="image/png" sizes="96x96" href={`/static/favicons/${resolvedTheme}/favicon-96x96.png`} />
+            <link rel="icon" type="image/png" sizes="16x16" href={`/static/favicons/${resolvedTheme}/favicon-16x16.png`} />
+            <meta name="msapplication-TileColor" content={resolvedTheme === 'dark' ? '#000000' : '#ffffff'} />
+            <meta name="msapplication-TileImage" content={`/static/favicons/${resolvedTheme}/ms-icon-144x144.png`} />
+            <meta name="theme-color" content={resolvedTheme === 'dark' ? '#000000' : '#ffffff'} />
+            </>
+          ) : (
+            <>
+              <link href={`/static/favicons/light/favicon.ico`} rel="shortcut icon" />
+              <link href={`/static/favicons/light/site.webmanifest`} rel="manifest" />
+              <link rel="apple-touch-icon" sizes="57x57" href={`/static/favicons/light/apple-icon-57x57.png`} />
+              <link rel="apple-touch-icon" sizes="60x60" href={`/static/favicons/light/apple-icon-60x60.png`} />
+              <link rel="apple-touch-icon" sizes="72x72" href={`/static/favicons/light/apple-icon-72x72.png`} />
+              <link rel="apple-touch-icon" sizes="76x76" href={`/static/favicons/light/apple-icon-76x76.png`} />
+              <link rel="apple-touch-icon" sizes="114x114" href={`/static/favicons/light/apple-icon-114x114.png`} />
+              <link rel="apple-touch-icon" sizes="120x120" href={`/static/favicons/light/apple-icon-120x120.png`} />
+              <link rel="apple-touch-icon" sizes="144x144" href={`/static/favicons/light/apple-icon-144x144.png`} />
+              <link rel="apple-touch-icon" sizes="152x152" href={`/static/favicons/light/apple-icon-152x152.png`} />
+              <link rel="apple-touch-icon" sizes="180x180" href={`/static/favicons/light/apple-icon-180x180.png`} />
+              <link rel="icon" type="image/png" sizes="192x192"  href={`/static/favicons/light/android-icon-192x192.png`} />
+              <link rel="icon" type="image/png" sizes="32x32" href={`/static/favicons/light/favicon-32x32.png`} />
+              <link rel="icon" type="image/png" sizes="96x96" href={`/static/favicons/light/favicon-96x96.png`} />
+              <link rel="icon" type="image/png" sizes="16x16" href={`/static/favicons/light/favicon-16x16.png`} />
+              <meta name="msapplication-TileColor" content="#ffffff" />
+              <meta name="msapplication-TileImage" content={`/static/favicons/light/ms-icon-144x144.png`} />
+              <meta name="theme-color" content="#ffffff" />
+            </>
+          )
+        }
       </Head>
       <div className="flex flex-col justify-center fixed w-full backdrop-blur-md z-20 px-8 bg-gray-50 dark:bg-gray-900 bg-opacity-60 dark:bg-opacity-50 transition-[backdrop-filter]">
         <nav className={cn(showBorder ? "border-solid border-b" : "",

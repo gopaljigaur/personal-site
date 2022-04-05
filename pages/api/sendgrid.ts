@@ -20,9 +20,24 @@ async function sendEmail(req, res) {
       templateId: templateId,
     });
   } catch (error) {
+    res.setHeader(
+      'Content-Type',
+      'application/json'
+    );
+    res.setHeader(
+      'X-Content-Type-Options',
+      'nosniff'
+    );
     return res.status(error.statusCode || 500).json({ error: error.message });
   }
-
+  res.setHeader(
+    'Content-Type',
+    'application/json'
+  );
+  res.setHeader(
+    'X-Content-Type-Options',
+    'nosniff'
+  );
   return res.status(200).json({ error: "" });
 }
 

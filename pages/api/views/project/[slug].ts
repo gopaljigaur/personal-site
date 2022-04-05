@@ -36,6 +36,14 @@ export default async function handler(
         'Cache-Control',
         'public, s-max-age=1200, stale-while-revalidate=600'
       );
+      res.setHeader(
+        'Content-Type',
+        'application/json'
+      );
+      res.setHeader(
+        'X-Content-Type-Options',
+        'nosniff'
+      );
       return res.status(200).json({ total: views.count.toString() });
     }
   } catch (e) {

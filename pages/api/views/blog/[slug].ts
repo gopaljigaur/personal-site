@@ -24,6 +24,14 @@ export default async function handler(
         'Cache-Control',
         'public, max-age=1200, stale-while-revalidate=600'
       );
+      res.setHeader(
+        'Content-Type',
+        'application/json'
+      );
+      res.setHeader(
+        'X-Content-Type-Options',
+        'nosniff'
+      );
       return res.status(200).json({
         total: newOrUpdatedViews.count.toString()
       });

@@ -132,8 +132,8 @@ async function generate() {
   "orientation": "portrait-primary",
   "start_url": "../../../index.html"
 }`;
-  writeFileSync('public/static/favicons/light/manifest.json', light_webmanifest);
-  writeFileSync('public/static/favicons/dark/manifest.json', dark_webmanifest);
+  writeFileSync('public/static/favicons/light/site.webmanifest', light_webmanifest);
+  writeFileSync('public/static/favicons/dark/site.webmanifest', dark_webmanifest);
 }
 
 generate();
