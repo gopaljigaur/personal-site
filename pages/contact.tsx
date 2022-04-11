@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Container from 'components/Container';
+import ReactTooltip from 'react-tooltip';
 import ContactForm from '../components/ContactForm';
 import { EmailIcon, GithubIcon, LinkedinIcon, TwitterIcon } from '../components/SvgIcons';
 import socialMdx from '../.contentlayer/generated/Metadata/metadata__social.mdx.json';
@@ -15,7 +16,7 @@ export default function Contact() {
         <div className="mb-4">
           <p className="text-gray-600 dark:text-gray-400 mb-4">
             You can send me a message directly or connect with me on <Link href="#links">
-            <a className="text-gray-900 dark:text-gray-100 underline">
+            <a className="text-gray-800 dark:text-gray-300 hover:text-black hover:dark:text-gray-200 underline transform-colors">
               social platforms.
             </a>
           </Link>
@@ -26,11 +27,12 @@ export default function Contact() {
           Links
         </h3>
         <div className="text-gray-600 dark:text-gray-400 mt-8 mb-4 flex flex-row flex-wrap w-full gap-x-6 mb-8 justify-center md:gap-16 lg:gap-20">
-              <a href={socialMdx.twitter} target="_blank" rel="noopener noreferrer" title="Twitter">{ TwitterIcon }</a>
-              <a href={socialMdx.github} target="_blank" rel="noopener noreferrer" title="Github">{ GithubIcon }</a>
-              <a href={socialMdx.linkedin} target="_blank" rel="noopener noreferrer" title="LinkedIn">{ LinkedinIcon }</a>
-              <a href={'mailto:' + socialMdx.email} target="_blank" rel="noopener noreferrer" title="Email">{ EmailIcon }</a>
+              <a href={socialMdx.twitter} target="_blank" rel="noopener noreferrer" data-tip={`@${socialMdx.twitter.split(/\//g).slice(-1)}`}>{ TwitterIcon }</a>
+              <a href={socialMdx.github} target="_blank" rel="noopener noreferrer" data-tip={`@${socialMdx.github.split(/\//g).slice(-1)}`}>{ GithubIcon }</a>
+              <a href={socialMdx.linkedin} target="_blank" rel="noopener noreferrer" data-tip={`@${socialMdx.linkedin.split(/\//g).slice(-1)}`}>{ LinkedinIcon }</a>
+              <a href={'mailto:' + socialMdx.email} target="_blank" rel="noopener noreferrer" data-tip={socialMdx.email}>{ EmailIcon }</a>
       </div>
+        <ReactTooltip className="tooltipClass" place="bottom" effect="solid" border={true} delayHide={150}/>
       </div>
     </Container>
   );

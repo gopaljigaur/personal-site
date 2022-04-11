@@ -226,3 +226,16 @@ table {
   overflow-x: auto;
   white-space: nowrap;
 }
+
+.tooltipClass {
+  @apply text-inherit tracking-wider pointer-events-auto text-sm p-2 border-2 rounded-lg bg-transparent border-gray-200 dark:border-gray-700 !important;
+}
+.tooltipClass::before {
+  @apply border-b-gray-200 dark:border-b-gray-700 !important;
+}
+.tooltipClass::after{
+  @apply border-b-white dark:border-b-gray-900 !important;
+}
+.tooltipClass:hover {
+   @apply visible opacity-100 !important;
+}

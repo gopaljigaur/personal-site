@@ -72,7 +72,7 @@ export default function ContactForm() {
   <input
     ref={inputEmail}
   aria-label="Email"
-  placeholder="name@example.com"
+  placeholder="Email"
   type="email"
   autoComplete="email"
   required
