@@ -8,8 +8,8 @@ import cn from 'classnames';
 import Footer from 'components/Footer';
 import MobileMenu from 'components/MobileMenu';
 import { MoonIcon, ScrollTopButton, SunIcon } from './SvgIcons';
-import metaMdx from '../.contentlayer/generated/Metadata/metadata__meta.mdx.json'
-import personMdx from '../.contentlayer/generated/Metadata/metadata__person.mdx.json'
+import metaMdx from '../.contentlayer/generated/Metadata/metadata__meta.mdx.json';
+import personMdx from '../.contentlayer/generated/Metadata/metadata__person.mdx.json';
 
 function NavItem({ href, text }) {
   const router = useRouter();
@@ -40,14 +40,10 @@ export default function Container(props) {
   useEffect(() => {
     if(mounted) {
       if (window.scrollY > 8) {
-        setTimeout(() => {
           setShowBorder(true);
-        }, 300)
       }
       if (window.scrollY > 400) {
-        setTimeout(() => {
           setShowScrollTop(true);
-        }, 300)
       }
       window.addEventListener("scroll", () => {
         if (window.scrollY > 8) {
