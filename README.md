@@ -1,7 +1,7 @@
 ![Vercel](https://therealsujitk-vercel-badge.vercel.app/?app=personal-site-gopaljigaur&style=for-the-badge)
 
 # Personal Website ([gopalji.me](https://gopalji.me))
-This is a repository containing the source files for my personel website.
+This is a repository containing the source files for my personal website.
 
 ## Built Using
 - [Next.js](https://nextjs.org/)
