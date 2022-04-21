@@ -1,2 +1,2 @@
 User-agent: *
-Sitemap: https://gopalji.ml/sitemap.xml
+Sitemap: https://gopalji.me/sitemap.xml

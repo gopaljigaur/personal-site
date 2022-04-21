@@ -9,11 +9,6 @@ module.exports = withContentlayer()({
   async redirects() {
     return [
       {
-        source: '/blogs',
-        destination: '/projects',
-        permanent: true
-      },
-      {
         source: '/twitter',
         destination: 'https://twitter.com/gopalji_gaur',
         permanent: true

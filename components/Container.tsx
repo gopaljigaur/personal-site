@@ -78,10 +78,27 @@ export default function Container(props) {
     meta.title += ` – ${ personMdx.name }`;
   }
 
+  const logoScript = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": metaMdx.site_url,
+    "logo": `${metaMdx.site_url}/static/favicons/light/apple-icon-152x152.png`
+  }
   return (
     <div className="flex flex-col h-screen">
       <Head>
         <title>{meta.title}</title>
+        <script type="application/ld+json">
+          {JSON.stringify(logoScript)}
+        </script>
+        {
+          props.script ?
+            <script
+              type="application/ld+json">
+              {props.script}
+            </script>
+            : ''
+        }
         <meta name="robots" content="follow, index" />
         <meta content={meta.description} name="description" />
         <meta property="og:url" content={`${metaMdx.site_url}${router.asPath}`} />

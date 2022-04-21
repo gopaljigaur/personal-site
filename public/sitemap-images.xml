@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+>
+  <url>
+    <loc>https://gopalji.me/blog/hello-world</loc>
+    <image:image>
+      <image:loc
+        >https://gopalji.me/static/images/10-days-in-norway/banner.png</image:loc
+      >
+      <image:title>10 Days in Norway</image:title>
+      <image:caption
+        >Visualize my journey through the scenic lands of Norway with rich,
+        stunning pictures and daily travel logs.</image:caption
+      >
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://gopalji.me/project/hello-world</loc>
+    <image:image>
+      <image:loc
+        >https://gopalji.me/static/images/10-days-in-norway/banner.png</image:loc
+      >
+      <image:title>10 Days in Norway</image:title>
+      <image:caption
+        >Visualize my journey through the scenic lands of Norway with rich,
+        stunning pictures and daily travel logs.</image:caption
+      >
+    </image:image>
+    <image:image>
+      <image:loc>https://gopalji.me/static/logos/javascript.png</image:loc>
+      <image:title>javascript</image:title>
+    </image:image>
+  </url>
+</urlset>

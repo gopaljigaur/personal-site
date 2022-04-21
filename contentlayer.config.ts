@@ -44,8 +44,10 @@ const Project = defineDocumentType(() => ({
     title: { type: 'string', required: true },
     summary: { type: 'string', required: true },
     url: { type: 'string', required: true },
+    logo: { type: 'string', required: true },
+    publishedAt: { type: 'string', required: true},
     source_url: { type: 'string', required: false },
-    logo: { type: 'string', required: true }
+    image: { type: 'string', required: false }
   },
   computedFields
 }));
