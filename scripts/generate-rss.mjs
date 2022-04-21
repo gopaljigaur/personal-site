@@ -3,17 +3,8 @@ import RSS from 'rss';
 import { allProjects } from '../.contentlayer/generated/allProjects.mjs';
 import { allMetadata } from '../.contentlayer/generated/allMetadata.mjs';
 
-let personName = '';
-let site_url = '';
-
-allMetadata.map((file) => {
-  if(file.name) {
-    personName = file.name;
-  }
-  if(file.site_url) {
-    site_url = file.site_url;
-  }
-})
+const personName = allMetadata[1].name;
+const site_url = allMetadata[0].site_url;
 
 async function generate() {
   const feed = new RSS({

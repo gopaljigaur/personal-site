@@ -1,22 +1,9 @@
 import { writeFileSync } from 'fs';
 import { allMetadata } from '../.contentlayer/generated/allMetadata.mjs';
 
-let personName = '';
-let site_url = '';
-let description = '';
-allMetadata.map((file) => {
-  if(file.name) {
-    personName = file.name;
-  }
-  if(file.site_url) {
-    site_url = file.site_url;
-  }
-  if(file.meta_description) {
-    description = file.meta_description;
-  }
-})
-
-const domainName = (new URL(site_url)).hostname;
+const personName = allMetadata[1].name;
+const site_url = allMetadata[0].site_url;
+const description = allMetadata[0].meta_description;
 
 async function generate() {
   const dark_webmanifest = `{

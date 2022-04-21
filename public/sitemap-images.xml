@@ -4,34 +4,86 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
 >
   <url>
-    <loc>https://gopalji.me/blog/hello-world</loc>
+    <loc>https://gopalji.mepages/about</loc>
     <image:image>
-      <image:loc
-        >https://gopalji.me/static/images/10-days-in-norway/banner.png</image:loc
-      >
-      <image:title>10 Days in Norway</image:title>
+      <image:loc>https://gopalji.me/static/images/banner.png</image:loc>
+      <image:title>Gopalji Gaur</image:title>
       <image:caption
-        >Visualize my journey through the scenic lands of Norway with rich,
-        stunning pictures and daily travel logs.</image:caption
+        >Machine Learning and Front-end enthusiast. Working with Neural Networks
+        and sometimes dabbling in Web Development.</image:caption
       >
     </image:image>
   </url>
-
+  ,
   <url>
-    <loc>https://gopalji.me/project/hello-world</loc>
+    <loc>https://gopalji.mepages/blog</loc>
     <image:image>
-      <image:loc
-        >https://gopalji.me/static/images/10-days-in-norway/banner.png</image:loc
-      >
-      <image:title>10 Days in Norway</image:title>
+      <image:loc>https://gopalji.me/static/images/banner.png</image:loc>
+      <image:title>Gopalji Gaur</image:title>
       <image:caption
-        >Visualize my journey through the scenic lands of Norway with rich,
-        stunning pictures and daily travel logs.</image:caption
+        >Machine Learning and Front-end enthusiast. Working with Neural Networks
+        and sometimes dabbling in Web Development.</image:caption
       >
     </image:image>
+  </url>
+  ,
+  <url>
+    <loc>https://gopalji.mepages/contact</loc>
     <image:image>
-      <image:loc>https://gopalji.me/static/logos/javascript.png</image:loc>
-      <image:title>javascript</image:title>
+      <image:loc>https://gopalji.me/static/images/banner.png</image:loc>
+      <image:title>Gopalji Gaur</image:title>
+      <image:caption
+        >Machine Learning and Front-end enthusiast. Working with Neural Networks
+        and sometimes dabbling in Web Development.</image:caption
+      >
+    </image:image>
+  </url>
+  ,
+  <url>
+    <loc>https://gopalji.mepages/dashboard</loc>
+    <image:image>
+      <image:loc>https://gopalji.me/static/images/banner.png</image:loc>
+      <image:title>Gopalji Gaur</image:title>
+      <image:caption
+        >Machine Learning and Front-end enthusiast. Working with Neural Networks
+        and sometimes dabbling in Web Development.</image:caption
+      >
+    </image:image>
+  </url>
+  ,
+  <url>
+    <loc>https://gopalji.mepages/index</loc>
+    <image:image>
+      <image:loc>https://gopalji.me/static/images/banner.png</image:loc>
+      <image:title>Gopalji Gaur</image:title>
+      <image:caption
+        >Machine Learning and Front-end enthusiast. Working with Neural Networks
+        and sometimes dabbling in Web Development.</image:caption
+      >
+    </image:image>
+  </url>
+  ,
+  <url>
+    <loc>https://gopalji.mepages/projects</loc>
+    <image:image>
+      <image:loc>https://gopalji.me/static/images/banner.png</image:loc>
+      <image:title>Gopalji Gaur</image:title>
+      <image:caption
+        >Machine Learning and Front-end enthusiast. Working with Neural Networks
+        and sometimes dabbling in Web Development.</image:caption
+      >
+    </image:image>
+  </url>
+  ,
+  <url>
+    <loc>https://gopalji.mepages/timeline</loc>
+    <image:image>
+      <image:loc>https://gopalji.me/static/images/banner.png</image:loc>
+      <image:title>Gopalji Gaur</image:title>
+      <image:caption
+        >Machine Learning and Front-end enthusiast. Working with Neural Networks
+        and sometimes dabbling in Web Development.</image:caption
+      >
     </image:image>
   </url>
 </urlset>

@@ -5,13 +5,9 @@ import { allMetadata } from '../.contentlayer/generated/allMetadata.mjs';
 import { allProjects } from '../.contentlayer/generated/allProjects.mjs';
 import { allBlogs } from '../.contentlayer/generated/allBlogs.mjs';
 
-let site_url = '';
-
-allMetadata.map((file) => {
-  if(file.site_url) {
-    site_url = file.site_url;
-  }
-})
+const site_url = allMetadata[0].site_url;
+const meta_title = allMetadata[0].meta_title;
+const meta_description = allMetadata[0].meta_description;
 
 async function generate() {
   const prettierConfig = await prettier.resolveConfig('./.prettierrc.js');
@@ -47,11 +43,32 @@ async function generate() {
           .join('')}
     </urlset>
     `;
-
+  const image_pages = await globby([
+    'pages/*.tsx',
+    '!pages/_*.tsx',
+    '!pages/api',
+    '!pages/404.tsx'
+  ]);
   const image_sitemap = `
       <?xml version="1.0" encoding="UTF-8"?>
       <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        ${image_pages
+          .map((page) => {
+            const path = page.replace(/\.(tsx|mdx)$/gm, '');
+            const route = path === '/index' ? '' : path;
+            return `
+              <url>
+                <loc>${site_url}${route}</loc>
+                <image:image>
+                  <image:loc>${site_url}/static/images/banner.png</image:loc>
+                  <image:title>${meta_title}</image:title>
+                  <image:caption>${meta_description}</image:caption>
+                </image:image>
+              </url>
+            `;
+          })    
+        }
         ${allBlogs
           .map((post) => {
             const image = post.image;
