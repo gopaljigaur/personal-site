@@ -20,13 +20,8 @@ async function generate() {
     '!pages/api',
     '!pages/404.tsx'
   ]);
-  const images = await globby([
-    'public/static/images/*.png',
-    'public/static/images/*.jpg',
-    'public/static/logos/*.png',
-    'public/static/logos/*.jpg'
-  ]);
-  const sitemap = `
+
+  const sitemap_pages = `
     <?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         ${pages
@@ -49,7 +44,7 @@ async function generate() {
     '!pages/api',
     '!pages/404.tsx'
   ]);
-  const image_sitemap = `
+  const sitemap_images = `
       <?xml version="1.0" encoding="UTF-8"?>
       <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
@@ -108,20 +103,37 @@ async function generate() {
       </urlset>
     `;
 
-  const formatted = prettier.format(sitemap, {
+  const sitemap_index = `
+  <?xml version="1.0" encoding="UTF-8"?>
+  <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>${site_url}/sitemap-pages.xml</loc>
+  </sitemap>
+  <sitemap>
+    <loc>${site_url}/sitemap-images.xml</loc>
+  </sitemap>
+  </sitemapindex>
+  `;
+
+  const formatted_pages = prettier.format(sitemap_pages, {
     ...prettierConfig,
     parser: 'html'
   });
 
-  const formatted_image = prettier.format(image_sitemap, {
+  const formatted_image = prettier.format(sitemap_images, {
     ...prettierConfig,
     parser: 'html'
-    }
+  });
 
-  )
+  const formatted = prettier.format(sitemap_index, {
+    ...prettierConfig,
+    parser: 'html'
+  });
+
   // eslint-disable-next-line no-sync
-  writeFileSync('public/sitemap.xml', formatted);
+  writeFileSync('public/sitemap-pages.xml', formatted_pages);
   writeFileSync('public/sitemap-images.xml', formatted_image);
+  writeFileSync('public/sitemap.xml', formatted);
 }
 
 generate();

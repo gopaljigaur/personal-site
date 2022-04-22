@@ -100,7 +100,7 @@ export default function Container(props) {
             : ''
         }
         <meta name="robots" content="follow, index" />
-        <meta content={meta.description} name="description" />
+        <meta name="description" content={meta.description} />
         <meta property="og:url" content={`${metaMdx.site_url}${router.asPath}`} />
         <link rel="canonical" href={`${metaMdx.site_url}${router.asPath}`} />
         <meta property="og:type" content={meta.type} />

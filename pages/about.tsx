@@ -5,6 +5,27 @@ import { ArrowIcon } from '../components/SvgIcons';
 import { allAbouts } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import components from 'components/MDXComponents';
+import socialMdx from '../.contentlayer/generated/Metadata/metadata__social.mdx.json';
+import personMdx from '../.contentlayer/generated/Metadata/metadata__person.mdx.json';
+import metaMdx from '../.contentlayer/generated/Metadata/metadata__meta.mdx.json';
+
+const headScript = {
+  "@context": "https://schema.org/",
+  "@type": "Person",
+  "name": personMdx.name,
+  "url": metaMdx.site_url,
+  "image": personMdx.avatar,
+  "alumniOf": "Vellore Institute of Technology",
+  "affiliation": "University of Freiburg",
+  "email": socialMdx.email,
+  "gender": "Male",
+  "sameAs": [
+  socialMdx.twitter,
+  socialMdx.linkedin,
+  socialMdx.github,
+  metaMdx.site_url
+]
+}
 
 export default function About() {
   const about = allAbouts[0];
@@ -12,7 +33,10 @@ export default function About() {
   const Education = useMDXComponent(about.education.code);
   const Work = useMDXComponent(about.work.code);
   return (
-    <Container title="About">
+    <Container
+      title="About"
+      script={headScript}
+    >
       <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16 w-full">
         <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-1 text-black dark:text-white">
           About Me
