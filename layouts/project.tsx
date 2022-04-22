@@ -19,23 +19,32 @@ export default function ProjectLayout({
   post
 }: PropsWithChildren<{ post: Project }>) {
   const headScript = {
-    "@context": "https://schema.org",
-    "@type": "BlogPosting",
-    "headline": post.title,
-    "image": metaMdx.site_url + (post.image ? post.image : '/static/images/banner.png'),
-    "datePublished": new Date(post.publishedAt).toISOString(),
-    "author": {
-      "@type": "Person",
-      "name": personMdx.name,
-      "url": metaMdx.site_url
-    }
+    "id": "google-article",
+    "type": "application/ld+json",
+    "script": `{
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "${post.title}",
+      "image": "${metaMdx.site_url}${post.image ? post.image : '/static/images/banner.png'}",
+      "datePublished": "${new Date(post.publishedAt).toISOString()}",
+      "author": {
+        "@type": "Person",
+        "name": "${personMdx.name}",
+        "url": "${metaMdx.site_url}"
+      }
+    }`
+  }
+  const remark_init = {
+    "id": "remark_init",
+    "type": "application/javascript",
+    "script": `!function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark_config.host+"/web/"+e[o]+c,d.appendChild(r)}}(remark_config.components||["embed"],document);`
   }
   return (
     <Container
       title={post.title}
       description={post.summary}
       type="article"
-      script={JSON.stringify(headScript)}
+      scripts={[headScript, remark_init]}
     >
       <div className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
       <article className="mb-8">

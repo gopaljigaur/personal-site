@@ -91,13 +91,28 @@ export default function Container(props) {
         <script type="application/ld+json">
           {JSON.stringify(logoScript)}
         </script>
+        <script id="remark-config">
+          {
+            `var remark_config = {
+              host: 'https://comments.gopalji.me',
+              site_id: 'gopaljime',
+              theme: '${resolvedTheme}'
+            }`
+          }
+        </script>
         {
-          props.script ?
-            <script
-              type="application/ld+json">
-              {props.script}
-            </script>
-            : ''
+          props.scripts ?
+            (
+              props.scripts.map((script) => {
+                return(
+                  <script
+                    key={script.id}
+                    type={script.type}>
+                    {script.script}
+                  </script>
+                );
+              })
+            ): ''
         }
         <meta name="robots" content="follow, index" />
         <meta name="description" content={meta.description} />
@@ -195,7 +210,13 @@ export default function Container(props) {
             type="button"
             className="z-50 w-9 h-9 bg-gray-200 rounded-lg dark:bg-gray-600 flex items-center justify-center hover:ring-2 ring-gray-300 transition-all"
             onClick={() =>
-              setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+              resolvedTheme === 'dark' ? (
+                // @ts-ignore
+                window.REMARK42.changeTheme('light'), setTheme('light')
+              ) : (
+                // @ts-ignore
+                window.REMARK42.changeTheme('dark'),setTheme('dark')
+              )
             }
           >
             {mounted &&

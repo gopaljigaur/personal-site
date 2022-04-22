@@ -4,9 +4,10 @@ import { NextResponse } from 'next/server';
 export function middleware(req: NextRequest, ev: NextFetchEvent) {
   const ContentSecurityPolicy = `
     default-src 'self';
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com vitals.vercel-insights.com;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' *.youtube.com *.twitter.com *.gopalji.me vitals.vercel-insights.com;
     child-src *.youtube.com *.google.com *.twitter.com;
-    style-src 'self' 'unsafe-inline' *.googleapis.com;
+    style-src 'self' 'unsafe-inline' *.googleapis.com *.gopalji.me;
+    frame-src *.gopalji.me;
     img-src * blob: data:;
     media-src 'none';
     connect-src *;

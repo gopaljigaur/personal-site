@@ -10,21 +10,24 @@ import personMdx from '../.contentlayer/generated/Metadata/metadata__person.mdx.
 import metaMdx from '../.contentlayer/generated/Metadata/metadata__meta.mdx.json';
 
 const headScript = {
-  "@context": "https://schema.org/",
-  "@type": "Person",
-  "name": personMdx.name,
-  "url": metaMdx.site_url,
-  "image": personMdx.avatar,
-  "alumniOf": "Vellore Institute of Technology",
-  "affiliation": "University of Freiburg",
-  "email": socialMdx.email,
-  "gender": "Male",
-  "sameAs": [
-  socialMdx.twitter,
-  socialMdx.linkedin,
-  socialMdx.github,
-  metaMdx.site_url
-]
+  "id": "google-person",
+  "type": "application/ld+json",
+  "script": `{
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    "name": "${personMdx.name}",
+    "url": "${metaMdx.site_url}",
+    "image": "${personMdx.avatar}",
+    "affiliation": "${personMdx.organization}",
+    "email": "${socialMdx.email}",
+    "gender": "Male",
+    "sameAs": [
+      "${socialMdx.twitter}",
+      "${socialMdx.linkedin}",
+      "${socialMdx.github}",
+      "${metaMdx.site_url}"
+    ]
+  }`
 }
 
 export default function About() {
@@ -35,7 +38,7 @@ export default function About() {
   return (
     <Container
       title="About"
-      script={JSON.stringify(headScript)}
+      scripts={[headScript]}
     >
       <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16 w-full">
         <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-1 text-black dark:text-white">
