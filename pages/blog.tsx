@@ -9,9 +9,10 @@ import { pick } from 'lib/utils';
 import { allBlogs } from 'contentlayer/generated';
 import fetcher from '../lib/fetcher';
 import { SearchIcon } from '../components/SvgIcons';
+import fetchPopularItems from '../lib/popular';
 
 export default function _blog({
-  posts
+  posts, popularItems
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const { data } = useSWR<any>('/api/views/blog/popular', fetcher);
   const items = data ? data : null;
@@ -50,17 +51,20 @@ export default function _blog({
               Most Popular
             </h3>
             {
-              items ? (
-                items.map((item) => {
-                  return (
-                    <BlogPost
-                      key={item.slug}
-                      title={item.title}
-                      summary={item.summary}
-                      slug={item.slug} />
-                  )
-                })
-              ) : ''
+              popularItems ? (
+                (popularItems.length > 0) ? (
+                  popularItems.map((item) => {
+                    return (
+                      <BlogPost
+                        key={item.slug}
+                        title={item.title}
+                        summary={item.summary}
+                        slug={item.slug}
+                      />
+                    )
+                  })
+                ) : <p className="mb-4 text-gray-600 dark:text-gray-400">No items found.</p>
+              ) : <p className="mb-4 text-gray-600 dark:text-gray-400">No items found.</p>
             }
           </>
         )}
@@ -80,13 +84,16 @@ export default function _blog({
   );
 }
 
-export function getStaticProps() {
+export async function getStaticProps() {
   const posts = allBlogs
     .map((post) => pick(post, ['slug', 'title', 'summary', 'publishedAt']))
     .sort(
       (a, b) =>
         Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt))
     );
-
-  return { props: { posts } };
+  const popularItems = await fetchPopularItems('blog', 3);
+  return {
+    props: { posts, popularItems },
+  revalidate: 60
+  };
 }

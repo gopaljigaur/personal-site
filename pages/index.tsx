@@ -2,11 +2,17 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Container from '../components/Container';
-import PopularProjects from '../components/PopularProjects';
 import { ArrowIcon } from '../components/SvgIcons';
-import personMdx from '../.contentlayer/generated/Metadata/metadata__person.mdx.json'
+import personMdx from '../.contentlayer/generated/Metadata/metadata__person.mdx.json';
+import fetchPopularItems from '../lib/popular';
+import { ProjectCardSmall } from '../components/ProjectCards';
 
-export default function Home() {
+export default function Home({popularItems}) {
+  const cardGradients = [
+    "from-[#D8B4FE] to-[#818CF8]",
+    "from-[#6EE7B7] via-[#3B82F6] to-[#9333EA]",
+    "from-[#FDE68A] via-[#FCA5A5] to-[#FECACA]"
+  ];
   return (
     <Container>
       <div className="flex flex-col justify-center items-start max-w-2xl border-gray-200 dark:border-gray-700 mx-auto pb-16">
@@ -43,7 +49,25 @@ export default function Home() {
         <h3 className="font-bold text-2xl md:text-4xl tracking-tight mb-6 mt-16 text-black dark:text-white">
           Popular Projects
         </h3>
-        <PopularProjects cardType="small" />
+        <div className="flex w-full gap-6 flex-col md:flex-row min-h-[10rem]">
+        {
+          popularItems ? (
+            (popularItems.length > 0) ? (
+              popularItems.map((item, index) => {
+                return (
+                  <ProjectCardSmall
+                    key={item.slug}
+                    title={item.title}
+                    slug={item.slug}
+                    url={item.url}
+                    count={item.count}
+                    gradient={cardGradients[index]} />
+                )
+              })
+            ) : <p className="mb-4 text-gray-600 dark:text-gray-400">No items found.</p>
+          ) : <p className="mb-4 text-gray-600 dark:text-gray-400">No items found.</p>
+        }
+        </div>
         <Link href="/projects">
           <a className="flex mt-8 text-gray-600 dark:text-gray-400 leading-7 rounded-lg hover:text-black dark:hover:text-gray-200 transition-all h-6">
             View all projects
@@ -53,4 +77,12 @@ export default function Home() {
       </div>
     </Container>
   );
+}
+
+export async function getStaticProps() {
+  const popularItems = await fetchPopularItems('project', 3);
+  return {
+    props: { popularItems },
+    revalidate: 60
+  };
 }

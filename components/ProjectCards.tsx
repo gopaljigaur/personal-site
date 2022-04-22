@@ -12,7 +12,7 @@ export function ProjectCardSmall({ title, slug, gradient, url, count }) {
   const { data } = useSWR<Views>(`/api/views/project/${slug}`, fetcher);
   const views = count ? count : data?.total;
   return (
-    <div className="flex w-full relative">
+    <div className="flex relative">
       <a
         className={cn("peer h-6 w-6 z-10 top-4 right-4 absolute text-gray-900 dark:text-gray-100 hover:scale-[1.4] transition-transform")}
         href={url}

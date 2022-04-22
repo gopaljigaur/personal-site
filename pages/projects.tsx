@@ -5,11 +5,11 @@ import { ProjectCardBig } from 'components/ProjectCards';
 import { InferGetStaticPropsType } from 'next';
 import { pick } from 'lib/utils';
 import { allProjects } from 'contentlayer/generated';
-import PopularProjects from '../components/PopularProjects';
 import { SearchIcon } from 'components/SvgIcons';
+import fetchPopularItems from '../lib/popular';
 
 export default function Projects({
-  projectItems
+  projectItems, popularItems
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [searchValue, setSearchValue] = useState('');
   const filteredProjectCards = projectItems.filter((projectItem) =>
@@ -50,7 +50,31 @@ export default function Projects({
             <h3 className="mt-8 mb-6 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">
               Most Popular
             </h3>
-            <PopularProjects cardType="big" type={true}/>
+            {
+              popularItems ? (
+                (popularItems.length > 0) ? (
+                  popularItems.map((item, index) => {
+                    return (
+                      <ProjectCardBig
+                        key={item.slug}
+                        title={item.title}
+                        summary={item.summary}
+                        slug={item.slug}
+                        logo={item.logo}
+                        url={item.url}
+                        {
+                          ...{
+                            popular: true,
+                            gradient: cardGradients[index],
+                            count: item.count
+                          }
+                        }
+                      />
+                    )
+                  })
+                ) : <p className="mb-4 text-gray-600 dark:text-gray-400">No items found.</p>
+              ) : <p className="mb-4 text-gray-600 dark:text-gray-400">No items found.</p>
+            }
           </>
         )}
         <h3 className="mt-16 mb-6 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">
@@ -71,9 +95,12 @@ export default function Projects({
   );
 }
 
-export function getStaticProps() {
+export async function getStaticProps() {
   const projectItems = allProjects
     .map((projectItem) => pick(projectItem, ['slug', 'title', 'summary', 'logo', 'url']));
-
-  return { props: { projectItems } };
+  const popularItems = await fetchPopularItems('project', 3);
+  return {
+    props: { projectItems, popularItems },
+    revalidate: 60
+  };
 }
