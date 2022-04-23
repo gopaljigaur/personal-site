@@ -84,6 +84,12 @@ export default function Container(props) {
     "url": metaMdx.site_url,
     "logo": `${metaMdx.site_url}/static/favicons/light/apple-icon-152x152.png`
   }
+
+  const remark_config_script = `var remark_config = {
+              host: 'https://comments.gopalji.me',
+              site_id: 'gopaljime',
+              theme: '${resolvedTheme}'
+            }`;
   return (
     <div className="flex flex-col h-screen">
       <Head>
@@ -92,13 +98,7 @@ export default function Container(props) {
           {JSON.stringify(logoScript)}
         </script>
         <script id="remark-config">
-          {
-            `var remark_config = {
-              host: 'https://comments.gopalji.me',
-              site_id: 'gopaljime',
-              theme: '${resolvedTheme}'
-            }`
-          }
+          { remark_config_script }
         </script>
         {
           props.scripts ?
@@ -178,7 +178,7 @@ export default function Container(props) {
           )
         }
       </Head>
-      <div className="flex flex-col justify-center fixed w-full backdrop-blur-md z-20 px-8 bg-gray-50 dark:bg-gray-900 bg-opacity-60 dark:bg-opacity-50 transition-[backdrop-filter]">
+      <div className="flex flex-col justify-center fixed w-full backdrop-blur-md z-20 px-8 bg-gray-50 dark:bg-gray-900 bg-opacity-60 dark:bg-opacity-50 firefox:bg-opacity-100 dark:firefox:bg-opacity-100 transition-[backdrop-filter]">
         <nav className={cn(showBorder ? "border-solid border-b" : "",
           "flex items-center justify-between w-full relative max-w-2xl border-gray-200 dark:border-gray-700 mx-auto pt-8 pb-9 sm:pt-10 sm:pb-12 text-gray-900 dark:text-gray-100")}>
           <div className="md:ml-[-0.60rem]">
@@ -209,14 +209,22 @@ export default function Container(props) {
             title="Toggle Dark Mode"
             type="button"
             className="z-50 w-9 h-9 bg-gray-200 rounded-lg dark:bg-gray-600 flex items-center justify-center hover:ring-2 ring-gray-300 transition-all"
-            onClick={() =>
-              resolvedTheme === 'dark' ? (
+            onClick={() => {
+              if(resolvedTheme === 'dark') {
                 // @ts-ignore
-                window.REMARK42.changeTheme('light'), setTheme('light')
-              ) : (
+                if (window.REMARK42)
+                  // @ts-ignore
+                  window.REMARK42.changeTheme('light');
+                setTheme('light');
+              }
+              else {
                 // @ts-ignore
-                window.REMARK42.changeTheme('dark'),setTheme('dark')
-              )
+                if (window.REMARK42)
+                  // @ts-ignore
+                  window.REMARK42.changeTheme('dark');
+                setTheme('dark');
+              }
+            }
             }
           >
             {mounted &&

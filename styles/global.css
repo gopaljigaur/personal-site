@@ -239,3 +239,6 @@ table {
 .tooltipClass:hover {
    @apply visible opacity-100 !important;
 }
+iframe {
+  color-scheme: normal;
+}
