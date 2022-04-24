@@ -13,45 +13,21 @@ async function generate() {
   const prettierConfig = await prettier.resolveConfig('./.prettierrc.js');
   const pages = await globby([
     'pages/*.tsx',
-    'data/blog/*.mdx',
-    'data/project/*.mdx',
     '!data/*.mdx',
     '!pages/_*.tsx',
     '!pages/api',
     '!pages/404.tsx'
   ]);
 
-  const sitemap_pages = `
+  const sitemap = `
     <?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
         ${pages
           .map((page) => {
             const path = page.replace(/((pages|data)|\.(tsx|mdx)$)/gm, '');
             const route = path === '/index' ? '' : path;
 
-            return `
-              <url>
-                  <loc>${site_url}${route}</loc>
-              </url>
-            `;
-          })
-          .join('')}
-    </urlset>
-    `;
-  const image_pages = await globby([
-    'pages/*.tsx',
-    '!pages/_*.tsx',
-    '!pages/api',
-    '!pages/404.tsx'
-  ]);
-  const sitemap_images = `
-      <?xml version="1.0" encoding="UTF-8"?>
-      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-        ${image_pages
-          .map((page) => {
-            const path = page.replace(/\.(tsx|mdx)$/gm, '');
-            const route = path === '/index' ? '' : path;
             return `
               <url>
                 <loc>${site_url}${route}</loc>
@@ -62,28 +38,28 @@ async function generate() {
                 </image:image>
               </url>
             `;
-          })    
-        }
-        ${allBlogs
-          .map((post) => {
-            const image = post.image;
-            return `
+          })
+          .join('')
+          }
+          ${allBlogs
+    .map((post) => {
+      return `
               <url>
                   <loc>${site_url}/blog/${post.slug}</loc>
                   <image:image>
-                    <image:loc>${site_url}${image}</image:loc>
+                    <image:loc>${site_url}${post.image}</image:loc>
                     <image:title>${post.title}</image:title>
                     <image:caption>${post.summary}</image:caption>
                   </image:image>
               </url>
             `;
-          })
-          .join('')
-        }
+    })
+    .join('')
+  }
         ${allProjects
-          .map((post) => {
-            const image = post.image ? post.image : '/static/images/banner.jpg';
-            return `
+    .map((post) => {
+      const image = post.image ? post.image : '/static/images/banner.jpg';
+      return `
               <url>
                   <loc>${site_url}/project/${post.slug}</loc>
                   <image:image>
@@ -97,42 +73,18 @@ async function generate() {
                   </image:image>
               </url>
             `;
-          })
-        .join('')
-      }
-      </urlset>
+    })
+    .join('')
+  }     
+    </urlset>
     `;
 
-  const sitemap_index = `
-  <?xml version="1.0" encoding="UTF-8"?>
-  <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <sitemap>
-    <loc>${site_url}/sitemap-pages.xml</loc>
-  </sitemap>
-  <sitemap>
-    <loc>${site_url}/sitemap-images.xml</loc>
-  </sitemap>
-  </sitemapindex>
-  `;
-
-  const formatted_pages = prettier.format(sitemap_pages, {
-    ...prettierConfig,
-    parser: 'html'
-  });
-
-  const formatted_image = prettier.format(sitemap_images, {
-    ...prettierConfig,
-    parser: 'html'
-  });
-
-  const formatted = prettier.format(sitemap_index, {
+  const formatted = prettier.format(sitemap, {
     ...prettierConfig,
     parser: 'html'
   });
 
   // eslint-disable-next-line no-sync
-  writeFileSync('public/sitemap-pages.xml', formatted_pages);
-  writeFileSync('public/sitemap-images.xml', formatted_image);
   writeFileSync('public/sitemap.xml', formatted);
 }
 
