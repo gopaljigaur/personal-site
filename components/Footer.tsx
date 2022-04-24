@@ -55,7 +55,7 @@ export default function Footer() {
           </Link>
         </div>
         <div className="pb-8 block sm:hidden text-gray-500 text-sm justify-self-center">
-          © {personMdx.name} {new Date().getFullYear()}
+          © {new Date().getFullYear()} {personMdx.name}
         </div>
       </div>
     </footer>
