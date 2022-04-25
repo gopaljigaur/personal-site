@@ -14,7 +14,12 @@ export type Views = {
   total: number;
 };
 
-export type GitHub = {
+export type ViewsEntry = {
+  slug: string;
+  count: number;
+};
+
+export type GitHubStats = {
   followers: number;
   stars: number;
 };

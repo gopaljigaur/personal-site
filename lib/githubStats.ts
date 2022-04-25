@@ -1,4 +1,6 @@
-export default async function githubStats(){
+import { GitHubStats } from 'lib/types';
+
+export default async function githubStats():Promise<GitHubStats>{
   try {
     const userResponse = await fetch('https://api.github.com/users/gopaljigaur');
     const userReposResponse = await fetch(

@@ -9,6 +9,7 @@ import PopularProjects from 'components/PopularProjects';
 
 export default function Home({fallback}) {
   return (
+    <SWRConfig value={{ fallback }}>
     <Container>
       <div className="flex flex-col justify-center items-start max-w-2xl border-gray-200 dark:border-gray-700 mx-auto pb-16">
         <div className="flex flex-col-reverse sm:flex-row items-start">
@@ -45,11 +46,9 @@ export default function Home({fallback}) {
           Popular Projects
         </h3>
         <div className="flex w-full gap-6 flex-col md:flex-row min-h-[10rem]">
-          <SWRConfig value={{ fallback }}>
             <PopularProjects
               cardSize="small"
             />
-          </SWRConfig>
         </div>
         <Link href="/projects">
           <a className="flex mt-8 text-gray-600 dark:text-gray-400 leading-7 rounded-lg hover:text-black dark:hover:text-gray-200 transition-all h-6">
@@ -59,6 +58,7 @@ export default function Home({fallback}) {
         </Link>
       </div>
     </Container>
+    </SWRConfig>
   );
 }
 

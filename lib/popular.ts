@@ -1,12 +1,12 @@
 import prisma from 'lib/prisma';
-import { allBlogs } from 'contentlayer/generated';
-import { allProjects } from 'contentlayer/generated';
+import { allBlogs, allProjects } from 'contentlayer/generated';
+import { PopularItem } from 'lib/types';
 
 export default async function fetchPopularItems (
   type: String, num: Number
-) {
-  let prisma_db = null;
-  let collection = null;
+):Promise<Array<PopularItem>> {
+  let prisma_db;
+  let collection;
   if(type === 'blog') {
     prisma_db = prisma.views_blogs;
     collection = allBlogs;
@@ -22,13 +22,13 @@ export default async function fetchPopularItems (
           count: 'desc',
         },
       });
-      const popularItems = filter.map((data) => {
+    return filter.map((data) => {
         const slug = data.slug;
         const count = data.count.toString();
         const match = collection.find(el => el['slug'] == slug);
         const title = match.title;
         const summary = match.summary;
-        if( type === 'project' ){
+        if (type === 'project') {
           const logo = match.logo;
           const url = match.url;
           return {
@@ -39,8 +39,7 @@ export default async function fetchPopularItems (
             'logo': logo,
             'url': url
           };
-        }
-        else if ( type === 'blog' ){
+        } else if (type === 'blog') {
           return {
             'slug': slug,
             'count': count,
@@ -49,7 +48,6 @@ export default async function fetchPopularItems (
           };
         }
       });
-      return popularItems;
     }
   catch (e) {
     return([]);

@@ -4,11 +4,12 @@ import BlogPost from 'components/BlogPost';
 import { InferGetStaticPropsType } from 'next';
 import { pick } from 'lib/utils';
 import { allBlogs } from 'contentlayer/generated';
-import fetcher from '../lib/fetcher';
-import { SearchIcon } from '../components/SvgIcons';
-import fetchPopularItems from '../lib/popular';
-import { PopularItem } from '../lib/types';
+import fetcher from 'lib/fetcher';
+import { SearchIcon } from 'components/SvgIcons';
+import fetchPopularItems from 'lib/popular';
+import { PopularItem } from 'lib/types';
 import useSWR, { SWRConfig } from 'swr';
+import fetchAllViews from 'lib/fetchAllViews';
 
 function PopularPosts(){
   const { data } = useSWR<Array<PopularItem>>('/api/blog/popular', fetcher);
@@ -41,8 +42,8 @@ export default function Blog({
   const filteredBlogPosts = posts.filter((post) =>
     post.title.toLowerCase().includes(searchValue.toLowerCase())
   );
-
   return (
+    <SWRConfig value={{ fallback }}>
     <Container
       title="Blog"
       description="A collection of my thoughts on programming and tech industry, and some helpful tutorials."
@@ -70,9 +71,7 @@ export default function Blog({
             <h3 className="mt-8 mb-4 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">
               Most Popular
             </h3>
-            <SWRConfig value={{ fallback }}>
               <PopularPosts />
-            </SWRConfig>
           </>
         )}
         <h3 className="mt-8 mb-4 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">
@@ -88,6 +87,7 @@ export default function Blog({
         ))}
       </div>
     </Container>
+    </SWRConfig>
   );
 }
 
@@ -98,12 +98,22 @@ export async function getStaticProps() {
       (a, b) =>
         Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt))
     );
+    const viewTable = await fetchAllViews('blog');
+    const fallbackViews = viewTable.map((entry) => {
+      let obj = Object;
+      const key = '/api/blog/views/' + entry.slug;
+      obj[key] = {
+        total: Number(entry.count)
+      };
+      return (obj)
+    });
   const popularItems = await fetchPopularItems('blog', 3);
   return {
     props: {
       posts,
       fallback: {
-        '/api/blog/popular': popularItems
+        '/api/blog/popular': popularItems,
+        ...fallbackViews[0]
       }
       },
   revalidate: 60

@@ -7,7 +7,7 @@ import metadata from 'data/metadata.json';
 
 export default function AnalyticsCard() {
   const { data, error } = useSWR<Views>('/api/all/views', fetcher);
-  const pageViews = Number(data?.total);
+  const pageViews = Number(data.total);
   const link = metadata.site_url;
 
   return (

@@ -1,21 +1,23 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import funfact from 'lib/funfact';
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const apiResponse = await fetch('https://api.chucknorris.io/jokes/random?category=dev');
-
-  const funFact = await apiResponse.json();
-  res.setHeader(
-    'Content-Type',
-    'application/json'
-  );
-  res.setHeader(
-    'X-Content-Type-Options',
-    'nosniff'
-  );
-  return res.status(200).json({
-    fact: funFact.value
-  });
+  try {
+    const apiResponse = await funfact();
+    res.setHeader(
+      'Content-Type',
+      'application/json'
+    );
+    res.setHeader(
+      'X-Content-Type-Options',
+      'nosniff'
+    );
+    return res.status(200).json(apiResponse);
+  }
+  catch (e) {
+    return res.status(500).json({message: e});
+  }
 }
