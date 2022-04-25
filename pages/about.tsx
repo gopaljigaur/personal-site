@@ -1,34 +1,11 @@
 import Link from 'next/link';
-
+import { NextSeo, SocialProfileJsonLd } from 'next-seo';
 import Container from 'components/Container';
 import { ArrowIcon } from '../components/SvgIcons';
 import { allAbouts } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import components from 'components/MDXComponents';
-import socialMdx from '../.contentlayer/generated/Metadata/metadata__social.mdx.json';
-import personMdx from '../.contentlayer/generated/Metadata/metadata__person.mdx.json';
-import metaMdx from '../.contentlayer/generated/Metadata/metadata__meta.mdx.json';
-
-const headScript = {
-  "id": "google-person",
-  "type": "application/ld+json",
-  "script": `{
-    "@context": "https://schema.org/",
-    "@type": "Person",
-    "name": "${personMdx.name}",
-    "url": "${metaMdx.site_url}",
-    "image": "${personMdx.avatar}",
-    "affiliation": "${personMdx.organization}",
-    "email": "${socialMdx.email}",
-    "gender": "Male",
-    "sameAs": [
-      "${socialMdx.twitter}",
-      "${socialMdx.linkedin}",
-      "${socialMdx.github}",
-      "${metaMdx.site_url}"
-    ]
-  }`
-}
+import metadata from '../data/metadata.json';
 
 export default function About() {
   const about = allAbouts[0];
@@ -36,9 +13,39 @@ export default function About() {
   const Education = useMDXComponent(about.education.code);
   const Work = useMDXComponent(about.work.code);
   return (
+    <>
+    <NextSeo
+      openGraph={{
+        title: metadata.name,
+        description: metadata.short_bio,
+        url: metadata.site_url,
+        type: 'profile',
+        profile: {
+          firstName: metadata.name.split(' ')[0],
+          lastName: metadata.name.split(' ')[0],
+          username: metadata.meta_twitter,
+          gender: 'male',
+        },
+        images: [
+          {
+            url: metadata.avatar,
+            alt: 'Profile Photo',
+          },
+        ],
+      }}
+    />
+      <SocialProfileJsonLd
+        type="Person"
+        name={metadata.name}
+        url={metadata.site_url}
+        sameAs={[
+          metadata.github,
+          metadata.linkedin,
+          metadata.twitter
+        ]}
+      />
     <Container
       title="About"
-      scripts={[headScript]}
     >
       <div className="flex flex-col justify-center items-start max-w-2xl mx-auto mb-16 w-full">
         <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-1 text-black dark:text-white">
@@ -61,5 +68,6 @@ export default function About() {
         </Link>
       </div>
     </Container>
+    </>
   );
 }

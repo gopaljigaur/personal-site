@@ -1,10 +1,10 @@
 import sendgrid from "@sendgrid/mail";
 import { AkismetClient } from 'akismet-api';
-import metaMdx from '../../.contentlayer/generated/Metadata/metadata__meta.mdx.json';
+import metadata from '../../data/metadata.json';
 
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 const key = process.env.AKISMET_API_KEY;
-const blog = metaMdx.site_url;
+const blog = metadata.site_url;
 
 const client = new AkismetClient({key, blog});
 

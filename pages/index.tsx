@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
-
+import metadata from '../data/metadata.json';
 import Container from '../components/Container';
 import { ArrowIcon } from '../components/SvgIcons';
-import personMdx from '../.contentlayer/generated/Metadata/metadata__person.mdx.json';
 import fetchPopularItems from '../lib/popular';
 import { ProjectCardSmall } from '../components/ProjectCards';
 
@@ -19,14 +18,14 @@ export default function Home({popularItems}) {
         <div className="flex flex-col-reverse sm:flex-row items-start">
           <div className="flex flex-col pr-16">
             <h1 className="font-bold text-3xl md:text-5xl tracking-tight mb-2 text-black dark:text-white">
-              { personMdx.name }
+              { metadata.name }
             </h1>
             <h2 className="text-gray-700 dark:text-gray-200 mb-4">
-              { personMdx.role + ' at '}
-              <span className="font-semibold">{ personMdx.organization }</span>
+              { metadata.role + ' at '}
+              <span className="font-semibold">{ metadata.organization }</span>
             </h2>
             <p className="text-gray-600 dark:text-gray-400">
-              { personMdx.short_bio }
+              { metadata.short_bio }
             </p>
             <Link href="/about">
               <a className="flex mt-4 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-gray-200 transition-colors">
@@ -37,11 +36,11 @@ export default function Home({popularItems}) {
           </div>
           <div className="w-[80px] sm:w-[176px] relative mb-8 sm:mb-0 mr-auto self-center">
             <Image
-              alt={ personMdx.name }
+              alt={ metadata.name }
               height={176}
               width={176}
               priority={true}
-              src={ personMdx.avatar }
+              src={ metadata.avatar }
               className="rounded-full bg-gray-200 dark:bg-gray-800 dark:brightness-90 dark:saturate-[0.85] transition"
             />
           </div>

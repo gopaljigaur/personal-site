@@ -97,33 +97,9 @@ const Timeline = defineDocumentType(() => ({
   },
 }));
 
-const Metadata = defineDocumentType(() => ({
-  name: 'Metadata',
-  filePathPattern: 'metadata/*.mdx',
-  contentType: 'mdx',
-  fields: {
-    name: { type: 'string', required: false},
-    role: { type: 'string', required: false},
-    organization: { type: 'string', required: false},
-    avatar: { type: 'string', required: false},
-    short_bio: {type: 'string', required: false},
-    site_url: { type: 'string', required: false},
-    meta_title: { type: 'string', required: false},
-    meta_description: { type: 'string', required: false},
-    meta_image: { type: 'string', required: false},
-    meta_twitter: { type: 'string', required: false},
-    google_site_verification: { type: 'string', required: false},
-    yandex_verification: { type: 'string', required: false},
-    email: { type: 'string', required: false},
-    twitter: { type: 'string', required: false},
-    github: { type: 'string', required: false},
-    linkedin: { type: 'string', required: false}
-  }
-}));
-
 const contentLayerConfig = makeSource({
   contentDirPath: 'data',
-  documentTypes: [Blog, Project, Newsletter, Snippet, About, Timeline, Metadata],
+  documentTypes: [Blog, Project, Newsletter, Snippet, About, Timeline],
   mdx: {
     remarkPlugins: [remarkGfm],
     rehypePlugins: [

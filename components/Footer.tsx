@@ -1,8 +1,6 @@
 import Link from 'next/link';
-import socialMdx from '../.contentlayer/generated/Metadata/metadata__social.mdx.json';
-import personMdx from '../.contentlayer/generated/Metadata/metadata__person.mdx.json';
 import { TwitterIcon, LinkedinIcon, GithubIcon, EmailIcon } from 'components/SvgIcons';
-
+import metadata from '../data/metadata.json';
 const ExternalLink = ({ href, children }) => (
   <a
     className="text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 transition"
@@ -21,21 +19,21 @@ export default function Footer() {
       <div className="w-full grid grid-cols-1 gap-4 sm:grid-cols-7">
         <div className="flex flex-col sm:col-span-3 space-y-4 mb-8 items-center sm:items-start">
           <div className="flex gap-8 sm:gap-4">
-            <ExternalLink href={socialMdx.twitter}>
+            <ExternalLink href={metadata.twitter}>
               { TwitterIcon }
             </ExternalLink>
-            <ExternalLink href={socialMdx.linkedin}>
+            <ExternalLink href={metadata.linkedin}>
               { LinkedinIcon }
             </ExternalLink>
-            <ExternalLink href={socialMdx.github}>
+            <ExternalLink href={metadata.github}>
               { GithubIcon }
             </ExternalLink>
-            <ExternalLink href={`mailto:${socialMdx.email}`}>
+            <ExternalLink href={`mailto:${metadata.email}`}>
               { EmailIcon }
             </ExternalLink>
           </div>
           <div className="hidden sm:block text-gray-500 text-sm pl-2">
-            © {personMdx.name} {new Date().getFullYear()}
+            © {metadata.name} {new Date().getFullYear()}
           </div>
         </div>
         <div className="mt-1 flex flex-col sm:col-span-2 space-y-4">
@@ -55,7 +53,7 @@ export default function Footer() {
           </Link>
         </div>
         <div className="pb-8 block sm:hidden text-gray-500 text-sm justify-self-center">
-          © {new Date().getFullYear()} {personMdx.name}
+          © {new Date().getFullYear()} {metadata.name}
         </div>
       </div>
     </footer>

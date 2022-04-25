@@ -4,13 +4,11 @@ import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import NextLink from 'next/link';
 import cn from 'classnames';
-
+import { NextSeo } from 'next-seo';
 import Footer from 'components/Footer';
 import MobileMenu from 'components/MobileMenu';
 import { MoonIcon, ScrollTopButton, SunIcon } from './SvgIcons';
-import metaMdx from '../.contentlayer/generated/Metadata/metadata__meta.mdx.json';
-import personMdx from '../.contentlayer/generated/Metadata/metadata__person.mdx.json';
-
+import metadata from '../data/metadata.json';
 function NavItem({ href, text }) {
   const router = useRouter();
   const isActive = router.asPath === href;
@@ -67,71 +65,42 @@ export default function Container(props) {
   const { children, ...customMeta } = props;
   const router = useRouter();
   const meta = {
-    title: metaMdx.meta_title,
-    description: metaMdx.meta_description,
-    image: metaMdx.meta_image,
+    title: metadata.meta_title,
+    description: metadata.meta_description,
+    image: metadata.meta_image,
     type: 'website',
     ...customMeta
   };
 
-  if(meta.title != metaMdx.meta_title) {
-    meta.title += ` – ${ personMdx.name }`;
+  if(meta.title != metadata.meta_title) {
+    meta.title += ` – ${ metadata.name }`;
   }
-
-  const logoScript = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "url": metaMdx.site_url,
-    "logo": `${metaMdx.site_url}/static/favicons/light/apple-icon-152x152.png`
-  }
-
-  const remark_config_script = `var remark_config = {
-              host: 'https://comments.gopalji.me',
-              site_id: 'gopaljime',
-              theme: '${resolvedTheme}'
-            }`;
   return (
     <div className="flex flex-col h-screen">
+      <NextSeo
+        title={meta.title}
+        description={meta.description}
+        canonical={`${metadata.site_url}${router.asPath}`}
+        openGraph={{
+          url: `${metadata.site_url}${router.asPath}`,
+          title: meta.title,
+          description: meta.description,
+          site_name: metadata.meta_title,
+          images: [
+            {
+              url: meta.image,
+              alt: meta.description
+            }
+          ]
+        }}
+        twitter={{
+          handle: metadata.meta_twitter,
+          site: metadata.meta_twitter,
+          cardType: 'summary_large_image',
+        }}
+      />
       <Head>
         <title>{meta.title}</title>
-        <script type="application/ld+json">
-          {JSON.stringify(logoScript)}
-        </script>
-        <script id="remark-config">
-          { remark_config_script }
-        </script>
-        {
-          props.scripts ?
-            (
-              props.scripts.map((script) => {
-                return(
-                  <script
-                    key={script.id}
-                    type={script.type}>
-                    {script.script}
-                  </script>
-                );
-              })
-            ): ''
-        }
-        <meta name="robots" content="follow, index" />
-        <meta name="description" content={meta.description} />
-        <meta property="og:url" content={`${metaMdx.site_url}${router.asPath}`} />
-        <link rel="canonical" href={`${metaMdx.site_url}${router.asPath}`} />
-        <meta property="og:type" content={meta.type} />
-        <meta property="og:site_name" content={metaMdx.meta_title} />
-        <meta property="og:description" content={meta.description} />
-        <meta property="og:title" content={meta.title} />
-        <meta property="og:image" content={meta.image} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content={metaMdx.meta_twitter} />
-        <meta name="twitter:title" content={meta.title} />
-        <meta name="twitter:description" content={meta.description} />
-        <meta name="twitter:image" content={meta.image} />
-        <meta name="twitter:image:alt" content={meta.description} />
-        {meta.date && (
-          <meta property="article:published_time" content={meta.date} />
-        )}
         {
           resolvedTheme ? (
             <>

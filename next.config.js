@@ -1,5 +1,4 @@
 const { withContentlayer } = require('next-contentlayer');
-
 /**
  * @type {import('next').NextConfig}
  */
@@ -21,11 +20,6 @@ module.exports = withContentlayer()({
       {
         source: '/linkedin',
         destination: 'https://www.linkedin.com/in/gopaljigaur',
-        permanent: true
-      },
-      {
-        source: '/email',
-        destination: 'mailto:contact@gopalji.me',
         permanent: true
       }
     ]

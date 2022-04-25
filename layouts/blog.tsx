@@ -1,54 +1,73 @@
 import Image from 'next/image';
 import { parseISO, format } from 'date-fns';
-
+import { NextSeo, ArticleJsonLd } from 'next-seo';
+import { useTheme } from 'next-themes';
+import Script from 'next/script';
 import Container from 'components/Container';
 import ViewCounter from 'components/ViewCounter';
 import type { PropsWithChildren } from 'react';
 import type { Blog } from 'contentlayer/generated';
-import socialMdx from '../.contentlayer/generated/Metadata/metadata__social.mdx.json';
-import personMdx from '../.contentlayer/generated/Metadata/metadata__person.mdx.json';
-import metaMdx from '../.contentlayer/generated/Metadata/metadata__meta.mdx.json';
+import metadata from '../data/metadata.json';
 
 const editUrl = (slug) =>
-  `${socialMdx.github}/blogs/edit/main/data/blog/${slug}.mdx`;
+  `${metadata.github}/blogs/edit/main/data/blog/${slug}.mdx`;
 const discussUrl = (slug) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(
-    `${metaMdx.site_url}/blog/${slug}`
+    `${metadata.site_url}/blog/${slug}`
   )}`;
 
 export default function BlogLayout({
   children,
   post
 }: PropsWithChildren<{ post: Blog }>) {
-  const headScript = {
-    "id": "google-article",
-    "type": "application/ld+json",
-    "script": `{
-      "@context": "https://schema.org",
-      "@type": "BlogPosting",
-      "headline": "${post.title}",
-      "image": "${metaMdx.site_url}${post.image}",
-      "datePublished": "${new Date(post.publishedAt).toISOString()}",
-      "author": {
-        "@type": "Person",
-        "name": "${personMdx.name}",
-        "url": "${metaMdx.site_url}"
-      }
-    }`
-  }
-  const remark_init = {
-    "id": "remark_init",
-    "type": "application/javascript",
-    "script": `!function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark_config.host+"/web/"+e[o]+c,d.appendChild(r)}}(remark_config.components||["embed"],document);`
-  }
+  const { resolvedTheme } = useTheme();
   return (
+    <>
+      <Script id="remark-config">
+        {`var remark_config = {
+        host: "${process.env.NEXT_PUBLIC_REMARK42_HOST}",
+        site_id: "${process.env.NEXT_PUBLIC_REMARK42_SITE_ID}",
+        theme: "${resolvedTheme}"
+        }`}
+      </Script>
+      <Script id="remark-init">{`!function(e,n){for(var o=0;o<e.length;o++){var r=n.createElement("script"),c=".js",d=n.head||n.body;"noModule"in r?(r.type="module",c=".mjs"):r.async=!0,r.defer=!0,r.src=remark_config.host+"/web/"+e[o]+c,d.appendChild(r)}}(remark_config.components||["embed"],document);`}</Script>
+      <NextSeo
+        openGraph={{
+          title: post.title,
+          description: post.summary,
+          url: `${metadata.site_url}/blog/${post.slug}`,
+          type: 'article',
+          article: {
+            publishedTime: (new Date(post.publishedAt)).toISOString(),
+            authors: [
+              metadata.site_url,
+            ],
+          },
+          images: [
+            {
+              url: `${metadata.site_url}${post.image}`,
+              alt: post.title,
+            },
+          ],
+        }}
+      />
+      <ArticleJsonLd
+        type="Blog"
+        url={`${metadata.site_url}/blog/${post.slug}`}
+        title={post.title}
+        images={[
+          `${metadata.site_url}${post.image}`
+        ]}
+        datePublished={new Date(post.publishedAt).toISOString()}
+        authorName={metadata.name}
+        description={post.summary}
+      />
     <Container
       title={`${post.title}`}
       description={post.summary}
-      image={`${metaMdx.site_url}${post.image}`}
+      image={`${metadata.site_url}${post.image}`}
       date={new Date(post.publishedAt).toISOString()}
       type="article"
-      scripts={[headScript, remark_init]}
     >
       <div className="flex flex-col items-start justify-center w-full max-w-2xl mx-auto mb-16">
       <article className="mb-8 w-full">
@@ -58,14 +77,14 @@ export default function BlogLayout({
         <div className="flex flex-col items-start justify-between w-full mt-2 md:flex-row md:items-center">
           <div className="flex items-center">
             <Image
-              alt={personMdx.name}
+              alt={metadata.name}
               height={24}
               width={24}
-              src={personMdx.avatar}
+              src={metadata.avatar}
               className="rounded-full bg-gray-200 dark:bg-gray-800 dark:brightness-90 dark:saturate-[0.85]"
             />
             <p className="ml-2 text-sm text-gray-700 dark:text-gray-300">
-              {`${personMdx.name} / `}
+              {`${metadata.name} / `}
               {format(parseISO(post.publishedAt), 'MMMM dd, yyyy')}
             </p>
           </div>
@@ -92,5 +111,6 @@ export default function BlogLayout({
         <div id="remark42" className="w-full"></div>
     </div>
     </Container>
+    </>
   );
 }
