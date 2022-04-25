@@ -9,7 +9,9 @@ import Footer from 'components/Footer';
 import MobileMenu from 'components/MobileMenu';
 import { MoonIcon, ScrollTopButton, SunIcon } from './SvgIcons';
 import metadata from 'data/metadata.json';
-function NavItem({ href, text }) {
+import NavEntries from 'components/NavEntries';
+
+function NavItem({ name, href }) {
   const router = useRouter();
   const isActive = router.asPath === href;
 
@@ -23,7 +25,7 @@ function NavItem({ href, text }) {
           'hidden md:inline-block p-1 sm:px-3 sm:py-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-all'
         )}
       >
-        <span className="capsize">{text}</span>
+        <span className="capsize">{name}</span>
       </a>
     </NextLink>
   );
@@ -152,12 +154,13 @@ export default function Container(props) {
           "flex items-center justify-between w-full relative max-w-2xl border-gray-200 dark:border-gray-700 mx-auto pt-8 pb-9 sm:pt-10 sm:pb-12 text-gray-900 dark:text-gray-100")}>
           <div className="md:ml-[-0.60rem]">
             <MobileMenu />
-            <NavItem href="/" text="Home" />
-            <NavItem href="/dashboard" text="Dashboard" />
-            <NavItem href="/projects" text="Projects" />
-            <NavItem href="/about" text="About" />
-            <NavItem href="/timeline" text="Timeline" />
-            <NavItem href="/contact" text="Contact" />
+            {
+              NavEntries.map((entry) => {
+                return(
+                  <NavItem key={entry.name} name={entry.name} href={entry.url} />
+                )
+              })
+            }
           </div>
           <div className="flex gap-4">
             <button

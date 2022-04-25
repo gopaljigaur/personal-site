@@ -9,6 +9,7 @@ import { SearchIcon } from 'components/SvgIcons';
 import fetchPopularItems from '../lib/popular';
 import PopularProjects from '../components/PopularProjects';
 import { SWRConfig } from 'swr';
+import fetchAllViews from '../lib/fetchAllViews';
 
 export default function Projects({
   projectItems, fallback
@@ -25,6 +26,7 @@ export default function Projects({
     "from-[#FDE68A] via-[#FCA5A5] to-[#FECACA]"
   ];
   return (
+    <SWRConfig value={{ fallback }}>
     <Container
       title="Projects"
       description="A collection of my personal projects."
@@ -52,9 +54,7 @@ export default function Projects({
             <h3 className="mt-8 mb-6 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">
               Most Popular
             </h3>
-            <SWRConfig value={{ fallback }}>
               <PopularProjects cardSize="big" />
-            </SWRConfig>
           </>
         )}
         <h3 className="mt-16 mb-6 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">
@@ -72,6 +72,7 @@ export default function Projects({
         }
       </div>
     </Container>
+      </SWRConfig>
   );
 }
 
@@ -79,11 +80,21 @@ export async function getStaticProps() {
   const projectItems = allProjects
     .map((projectItem) => pick(projectItem, ['slug', 'title', 'summary', 'logo', 'url']));
   const popularItems = await fetchPopularItems('project', 3);
+  const viewTable = await fetchAllViews('project');
+  const fallbackViews = viewTable.map((entry) => {
+    let obj = Object;
+    const key = '/api/blog/views/' + entry.slug;
+    obj[key] = {
+      total: Number(entry.count)
+    };
+    return (obj)
+  });
   return {
     props: {
       projectItems,
       fallback: {
-        '/api/project/popular': popularItems
+        '/api/project/popular': popularItems,
+        ...fallbackViews[0]
       }
     },
     revalidate: 60

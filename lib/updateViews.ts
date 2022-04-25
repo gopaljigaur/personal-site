@@ -1,9 +1,10 @@
 import prisma from 'lib/prisma';
+import { Views } from 'lib/types';
 
 export default async function updateViews (
   type: String, slug: String
-) {
-  let prisma_db = null;
+): Promise<Views> {
+  let prisma_db;
   if (type === 'blog') {
     prisma_db = prisma.views_blogs;
   } else if (type === 'project') {
@@ -21,6 +22,6 @@ export default async function updateViews (
     }
   });
   return({
-    total: views.count.toString()
+    total: Number(views.count)
   });
 }

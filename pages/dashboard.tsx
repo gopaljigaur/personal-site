@@ -4,9 +4,11 @@ import GitHub from 'components/metrics/Github';
 import totalViews from 'lib/totalViews';
 import githubStats from 'lib/githubStats';
 import { SWRConfig } from 'swr';
+import { Views, GitHubStats } from 'lib/types';
 
 export default function Dashboard({fallback}) {
   return (
+    <SWRConfig value={{ fallback }}>
     <Container
       title="Dashboard"
       description="My personal dashboard, built with Next.js API routes deployed as serverless functions."
@@ -24,33 +26,36 @@ export default function Dashboard({fallback}) {
         <div className="flex flex-col w-full">
         </div>
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 my-2 w-full">
-          <SWRConfig value={{ fallback }}>
             <Analytics />
             <GitHub />
-          </SWRConfig>
         </div>
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 my-2 w-full">
         </div>
       </div>
     </Container>
+</SWRConfig>
   );
 }
 export async function getStaticProps () {
-  let analytics = null;
-  let github = null;
+  let analytics: Views;
+  let github: GitHubStats;
   try {
-    analytics = JSON.stringify(await totalViews('all'));
-    github = JSON.stringify(await githubStats());
+    analytics = await totalViews('all');
   }
   catch(e) {
-    analytics = JSON.stringify({
-      total: 0
-    })
-    github = JSON.stringify({
-      followers: 0,
-      stars: 0
-    })
+    analytics = {
+      total: -1
+    };
   }
+  try {
+    github = await githubStats();
+  }
+    catch(e) {
+      github = {
+        stars: -1,
+        followers: -1
+      };
+    }
   return {
     props: {
       fallback: {

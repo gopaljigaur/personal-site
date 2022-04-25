@@ -3,8 +3,9 @@ import Link from 'next/link';
 import useDelayedRender from 'use-delayed-render';
 import { useState, useEffect } from 'react';
 import styles from 'styles/mobile-menu.module.css';
+import NavEntries from 'components/NavEntries';
 
-export function MenuItem({name, href, delay}) {
+function MenuItem({name, href, delay}) {
   return(
     <li
       className="border-b first-of-type:border-t border-gray-300 dark:border-gray-700 text-gray-900 dark:text-gray-100 text-sm font-semibold"
@@ -60,13 +61,13 @@ export default function MobileMenu() {
             'flex flex-col absolute bg-gray-100 dark:bg-gray-900',
             isMenuRendered && styles.menuRendered
           )}
-        >
-          <MenuItem name="Home" href="/" delay={150} />
-          <MenuItem name="Dashboard" href="/dashboard" delay={200} />
-          <MenuItem name="Projects" href="/projects" delay={250} />
-          <MenuItem name="About" href="/about" delay={300} />
-          <MenuItem name="Timeline" href="/timeline" delay={350} />
-          <MenuItem name="Contact" href="/contact" delay={400} />
+        >{
+          NavEntries.map((entry, index) => {
+            return(
+              <MenuItem key={entry.name} name={entry.name} href={entry.url} delay={index * 50 + 150} />
+            )
+          })
+        }
         </ul>
       )}
     </>
