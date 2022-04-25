@@ -1,0 +1,52 @@
+---
+label: Metadata
+hide_body: true
+fields:
+- type: text
+  name: name
+  label: name
+- type: text
+  name: role
+  label: role
+- type: text
+  name: organization
+  label: organization
+- type: text
+  name: avatar
+  label: avatar
+- type: text
+  name: short_bio
+  label: short_bio
+- type: text
+  name: site_url
+  label: site_url
+- type: text
+  name: meta_title
+  label: meta_title
+- type: textarea
+  name: meta_description
+  label: meta_description
+- type: file
+  name: meta_image
+  label: meta_image
+- type: text
+  name: meta_twitter
+  label: meta_twitter
+- type: text
+  name: google_site_verification
+  label: google_site_verification
+- type: text
+  name: yandex_verification
+  label: yandex_verification
+- type: text
+  name: email
+  label: email
+- type: text
+  name: twitter
+  label: twitter
+- type: text
+  name: github
+  label: github
+- type: text
+  name: linkedin
+  label: linkedin
