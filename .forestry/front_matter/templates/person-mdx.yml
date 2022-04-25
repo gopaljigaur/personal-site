@@ -20,5 +20,3 @@ fields:
 - type: text
   name: avatar
   label: avatar
-pages:
-- data/metadata/person.mdx

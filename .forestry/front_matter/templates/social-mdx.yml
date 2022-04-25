@@ -15,5 +15,3 @@ fields:
 - type: text
   name: linkedin
   label: linkedin
-pages:
-- data/metadata/social.mdx

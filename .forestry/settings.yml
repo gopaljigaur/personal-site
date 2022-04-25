@@ -4,6 +4,10 @@ auto_deploy: false
 admin_path: ''
 webhook_url: 
 sections:
+- type: document
+  path: data/metadata.json
+  label: Metadata
+  match: "**/*"
 - type: heading
   label: Posts
 - type: directory
@@ -33,17 +37,6 @@ sections:
   new_doc_ext: mdx
   templates:
   - timeline_year
-- type: heading
-  label: Data
-- type: document
-  path: data/metadata/person.mdx
-  label: Person
-- type: document
-  path: data/metadata/social.mdx
-  label: Social
-- type: document
-  path: data/metadata/meta.mdx
-  label: Meta
 upload_dir: public/static/images
 public_path: "/static/images"
 front_matter_path: "/public/static/logos"

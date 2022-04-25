@@ -24,5 +24,3 @@ fields:
 - type: text
   name: yandex_verification
   label: yandex_verification
-pages:
-- data/metadata/meta.mdx
