@@ -5,48 +5,85 @@ fields:
 - type: text
   name: name
   label: name
+  description: Your Full Name
+  config:
+    required: true
+  default: Gopalji Gaur
 - type: text
   name: role
   label: role
+  description: Your Role in current Organization
+  config:
+    required: true
 - type: text
   name: organization
   label: organization
+  description: Your current Organization/Affiliation
+  config:
+    required: true
 - type: text
   name: avatar
   label: avatar
+  description: URL of your photo
+  config:
+    required: true
 - type: text
   name: short_bio
   label: short_bio
+  description: Short Introduction about yourself
+  config:
+    required: true
 - type: text
   name: site_url
   label: site_url
+  description: 'URL for your Website. (Format: https://example.com)'
+  config:
+    required: true
+  default: https://gopalji.me
 - type: text
   name: meta_title
   label: meta_title
+  description: Title for the website. Required for OpenGraph and Twitter Meta Tags.
+  config:
+    required: true
 - type: textarea
   name: meta_description
   label: meta_description
-- type: file
-  name: meta_image
-  label: meta_image
+  description: Description of website. Required for OpenGraph and Twiter Meta Tags
 - type: text
   name: meta_twitter
   label: meta_twitter
+  description: Your Twitter handle. Required for Twitter Meta Tag
+  hidden: false
+- name: meta_image
+  type: text
+  config:
+    required: true
+  label: meta_image
+  description: Image required for OpenGraph and Twitter meta tags
 - type: text
   name: google_site_verification
   label: google_site_verification
+  description: Google Site Verification meta tag
 - type: text
   name: yandex_verification
   label: yandex_verification
+  description: Yandex site verification meta tag
 - type: text
   name: email
   label: email
+  description: 'Your email address. (Example: mail@example.com)'
+  config:
+    required: false
 - type: text
   name: twitter
   label: twitter
+  description: Your Twitter profile URL
 - type: text
   name: github
   label: github
+  description: Your Github profile URL
 - type: text
   name: linkedin
   label: linkedin
+  description: Your LinkedIn profile URL
