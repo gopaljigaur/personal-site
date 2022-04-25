@@ -4,7 +4,7 @@ import Container from 'components/Container';
 import ViewCounter from 'components/ViewCounter';
 import type { PropsWithChildren } from 'react';
 import type { Project } from 'contentlayer/generated';
-import metadata from '../data/metadata.json';
+import metadata from 'data/metadata.json';
 import { ArticleJsonLd, NextSeo } from 'next-seo';
 import Script from 'next/script';
 import { useTheme } from 'next-themes';
@@ -121,6 +121,8 @@ export default function ProjectLayout({
           )
         }
       </div>
+        <h3 className="text-lg">Comments</h3>
+        <div id="remark42" className="w-full"></div>
       </div>
     </Container>
     </>

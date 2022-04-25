@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { TwitterIcon, LinkedinIcon, GithubIcon, EmailIcon } from 'components/SvgIcons';
-import metadata from '../data/metadata.json';
+import metadata from 'data/metadata.json';
 const ExternalLink = ({ href, children }) => (
   <a
     className="text-gray-500 hover:text-gray-600 dark:hover:text-gray-400 transition"

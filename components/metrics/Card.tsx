@@ -22,7 +22,7 @@ export default function MetricCard({ header, link, metric,  error }) {
                 (
                   metric > 0 ?
                   <p className="mt-2 text-3xl font-bold spacing-sm text-black dark:text-white">{metric.toLocaleString()}</p> :
-                  <div className="mt-2 animate-pulse h-9 w-1/3 rounded-xl bg-gray-200 dark:bg-gray-700">&nbsp;</div>
+                    <p className="mt-2 text-3xl font-bold spacing-sm text-black dark:text-white">-</p>
                 )
             )
         }

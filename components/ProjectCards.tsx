@@ -8,8 +8,8 @@ import cn from 'classnames';
 import Image from 'next/image';
 import { FollowLink, ViewIcon } from './SvgIcons';
 
-export function ProjectCardSmall({ title, slug, gradient, url, count }) {
-  const { data } = useSWR<Views>(`/api/views/project/${slug}`, fetcher);
+export function ProjectCardSmall({ title, slug, gradient, url, count, popular=false }) {
+  const { data } = useSWR<Views>(`/api/project/views/${slug}`, fetcher);
   const views = count ? count : data?.total;
   return (
     <div className="flex relative">
@@ -62,14 +62,19 @@ export function ProjectCardBig({
   url,
   ...props
 }: Pick<Project, 'title' | 'summary' | 'slug'  | 'logo' | 'url'>) {
-  const { data, error } = useSWR<Views>(`/api/views/project/${slug}`, fetcher);
+
+  const { data, error } = useSWR<Views>(`/api/project/views/${slug}`, fetcher);
   // @ts-ignore
   const views = props.count ? props.count : data?.total;
-  let cardClasses = 'rounded-xl w-full mb-4 bg-gray-200 dark:bg-gray-700 peer-hover:bg-gradient-to-r hover:bg-gradient-to-r p-1 transform';
-  // @ts-ignore
-  if(props.popular) {
-    cardClasses = 'rounded-xl w-full mb-4 bg-gradient-to-r p-1 transform peer-hover:scale-[1.01] hover:scale-[1.01] transition-transform';
-  }
+
+
+  const cardClasses = cn(
+    'rounded-xl w-full mb-4',
+    // @ts-ignore
+    props.popular ?
+      'bg-gradient-to-r p-1 transform peer-hover:scale-[1.01] hover:scale-[1.01] transition-transform'
+      : 'bg-gray-200 dark:bg-gray-700 peer-hover:bg-gradient-to-r hover:bg-gradient-to-r p-1 transform'
+  )
   return (
     <div className="flex w-full relative">
       <a

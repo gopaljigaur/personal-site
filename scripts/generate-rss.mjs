@@ -1,10 +1,11 @@
 import { writeFileSync } from 'fs';
 import RSS from 'rss';
 import { allProjects } from '../.contentlayer/generated/allProjects.mjs';
-import { allMetadata } from '../.contentlayer/generated/allMetadata.mjs';
+import { allBlogs } from '../.contentlayer/generated/allBlogs.mjs';
+import metadata from '../data/metadata.json';
 
-const personName = allMetadata[1].name;
-const site_url = allMetadata[0].site_url;
+const personName = metadata.name;
+const site_url = metadata.site_url;
 
 async function generate() {
   const feed = new RSS({
@@ -12,12 +13,17 @@ async function generate() {
     site_url: site_url,
     feed_url: `${site_url}/feed.xml`
   });
-
-  allProjects.map((post) => {
+  const posts = allBlogs.concat(allProjects)
+    .sort(
+    (a, b) =>
+      Number(new Date(b.publishedAt)) - Number(new Date(a.publishedAt))
+  );
+  posts.map((post) => {
     feed.item({
       title: post.title,
-      url: `${site_url}/project/${post.slug}`,
-      description: post.summary
+      url: `${site_url}/${post.type.toLowerCase()}/${post.slug}`,
+      description: post.summary,
+      date: new Date(post.publishedAt).toISOString()
     });
   });
 

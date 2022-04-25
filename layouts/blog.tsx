@@ -7,7 +7,7 @@ import Container from 'components/Container';
 import ViewCounter from 'components/ViewCounter';
 import type { PropsWithChildren } from 'react';
 import type { Blog } from 'contentlayer/generated';
-import metadata from '../data/metadata.json';
+import metadata from 'data/metadata.json';
 
 const editUrl = (slug) =>
   `${metadata.github}/blogs/edit/main/data/blog/${slug}.mdx`;

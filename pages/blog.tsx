@@ -1,7 +1,4 @@
 import { useState } from 'react';
-
-import useSWR from 'swr';
-
 import Container from 'components/Container';
 import BlogPost from 'components/BlogPost';
 import { InferGetStaticPropsType } from 'next';
@@ -10,13 +7,36 @@ import { allBlogs } from 'contentlayer/generated';
 import fetcher from '../lib/fetcher';
 import { SearchIcon } from '../components/SvgIcons';
 import fetchPopularItems from '../lib/popular';
+import { PopularItem } from '../lib/types';
+import useSWR, { SWRConfig } from 'swr';
 
-export default function _blog({
-  posts, popularItems
+function PopularPosts(){
+  const { data } = useSWR<Array<PopularItem>>('/api/blog/popular', fetcher);
+  return (
+    <>
+      {
+        data ? (
+          (data.length > 0) ? (
+            data.map((item) => {
+              return (
+                <BlogPost
+                  key={item.slug}
+                  title={item.title}
+                  summary={item.summary}
+                  slug={item.slug}
+                />
+              )
+            })
+          ) : <p className="mb-4 text-gray-600 dark:text-gray-400">No items found.</p>
+        ) : <p className="mb-4 text-gray-600 dark:text-gray-400">No items found.</p>
+      }
+  </>
+  )
+}
+
+export default function Blog({
+  posts, fallback
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { data } = useSWR<any>('/api/views/blog/popular', fetcher);
-  const items = data ? data : null;
-
   const [searchValue, setSearchValue] = useState('');
   const filteredBlogPosts = posts.filter((post) =>
     post.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -50,22 +70,9 @@ export default function _blog({
             <h3 className="mt-8 mb-4 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">
               Most Popular
             </h3>
-            {
-              popularItems ? (
-                (popularItems.length > 0) ? (
-                  popularItems.map((item) => {
-                    return (
-                      <BlogPost
-                        key={item.slug}
-                        title={item.title}
-                        summary={item.summary}
-                        slug={item.slug}
-                      />
-                    )
-                  })
-                ) : <p className="mb-4 text-gray-600 dark:text-gray-400">No items found.</p>
-              ) : <p className="mb-4 text-gray-600 dark:text-gray-400">No items found.</p>
-            }
+            <SWRConfig value={{ fallback }}>
+              <PopularPosts />
+            </SWRConfig>
           </>
         )}
         <h3 className="mt-8 mb-4 text-2xl font-bold tracking-tight text-black md:text-4xl dark:text-white">
@@ -93,7 +100,12 @@ export async function getStaticProps() {
     );
   const popularItems = await fetchPopularItems('blog', 3);
   return {
-    props: { posts, popularItems },
+    props: {
+      posts,
+      fallback: {
+        '/api/blog/popular': popularItems
+      }
+      },
   revalidate: 60
   };
 }

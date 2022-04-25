@@ -1,17 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import metadata from '../data/metadata.json';
-import Container from '../components/Container';
-import { ArrowIcon } from '../components/SvgIcons';
-import fetchPopularItems from '../lib/popular';
-import { ProjectCardSmall } from '../components/ProjectCards';
+import metadata from 'data/metadata.json';
+import Container from 'components/Container';
+import { ArrowIcon } from 'components/SvgIcons';
+import fetchPopularItems from 'lib/popular';
+import { SWRConfig } from 'swr';
+import PopularProjects from 'components/PopularProjects';
 
-export default function Home({popularItems}) {
-  const cardGradients = [
-    "from-[#D8B4FE] to-[#818CF8]",
-    "from-[#6EE7B7] via-[#3B82F6] to-[#9333EA]",
-    "from-[#FDE68A] via-[#FCA5A5] to-[#FECACA]"
-  ];
+export default function Home({fallback}) {
   return (
     <Container>
       <div className="flex flex-col justify-center items-start max-w-2xl border-gray-200 dark:border-gray-700 mx-auto pb-16">
@@ -49,23 +45,11 @@ export default function Home({popularItems}) {
           Popular Projects
         </h3>
         <div className="flex w-full gap-6 flex-col md:flex-row min-h-[10rem]">
-        {
-          popularItems ? (
-            (popularItems.length > 0) ? (
-              popularItems.map((item, index) => {
-                return (
-                  <ProjectCardSmall
-                    key={item.slug}
-                    title={item.title}
-                    slug={item.slug}
-                    url={item.url}
-                    count={item.count}
-                    gradient={cardGradients[index]} />
-                )
-              })
-            ) : <p className="mb-4 text-gray-600 dark:text-gray-400">No items found.</p>
-          ) : <p className="mb-4 text-gray-600 dark:text-gray-400">No items found.</p>
-        }
+          <SWRConfig value={{ fallback }}>
+            <PopularProjects
+              cardSize="small"
+            />
+          </SWRConfig>
         </div>
         <Link href="/projects">
           <a className="flex mt-8 text-gray-600 dark:text-gray-400 leading-7 rounded-lg hover:text-black dark:hover:text-gray-200 transition-all h-6">
@@ -81,7 +65,11 @@ export default function Home({popularItems}) {
 export async function getStaticProps() {
   const popularItems = await fetchPopularItems('project', 3);
   return {
-    props: { popularItems },
+    props: {
+      fallback: {
+          '/api/project/popular': popularItems
+        }
+      },
     revalidate: 60
   };
 }

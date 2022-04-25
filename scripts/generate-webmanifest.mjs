@@ -1,9 +1,9 @@
 import { writeFileSync } from 'fs';
-import { allMetadata } from '../.contentlayer/generated/allMetadata.mjs';
+import metadata from '../data/metadata.json';
 
-const personName = allMetadata[1].name;
-const site_url = allMetadata[0].site_url;
-const description = allMetadata[0].meta_description;
+const personName = metadata.name;
+const site_url = metadata.site_url;
+const description = metadata.meta_description;
 
 async function generate() {
   const dark_webmanifest = `{

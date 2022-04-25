@@ -1,5 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document';
-import metadata from '../data/metadata.json';
+import metadata from 'data/metadata.json';
 export default function Document(props) {
   return (
     <Html lang="en">

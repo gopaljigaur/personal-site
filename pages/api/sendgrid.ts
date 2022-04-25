@@ -1,6 +1,6 @@
 import sendgrid from "@sendgrid/mail";
 import { AkismetClient } from 'akismet-api';
-import metadata from '../../data/metadata.json';
+import metadata from 'data/metadata.json';
 
 sendgrid.setApiKey(process.env.SENDGRID_API_KEY);
 const key = process.env.AKISMET_API_KEY;

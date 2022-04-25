@@ -1,11 +1,11 @@
 import Link from 'next/link';
 import { NextSeo, SocialProfileJsonLd } from 'next-seo';
 import Container from 'components/Container';
-import { ArrowIcon } from '../components/SvgIcons';
+import { ArrowIcon } from 'components/SvgIcons';
 import { allAbouts } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import components from 'components/MDXComponents';
-import metadata from '../data/metadata.json';
+import metadata from 'data/metadata.json';
 
 export default function About() {
   const about = allAbouts[0];

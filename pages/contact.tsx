@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Container from 'components/Container';
-import ContactForm from '../components/ContactForm';
-import metadata from '../data/metadata.json';
+import ContactForm from 'components/ContactForm';
+import metadata from 'data/metadata.json';
 import { SocialProfileJsonLd } from 'next-seo';
 
 export default function Contact() {

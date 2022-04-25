@@ -15,9 +15,18 @@ export type Views = {
 };
 
 export type GitHub = {
+  followers: number;
   stars: number;
 };
 
 export type FunFact = {
   fact: string;
+};
+export type PopularItem = {
+  title: string;
+  slug: string;
+  summary: string;
+  count: string;
+  logo?: string;
+  url?: string;
 }

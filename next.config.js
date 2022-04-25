@@ -1,4 +1,5 @@
 const { withContentlayer } = require('next-contentlayer');
+const metadata = require('./data/metadata.json');
 /**
  * @type {import('next').NextConfig}
  */
@@ -9,17 +10,17 @@ module.exports = withContentlayer()({
     return [
       {
         source: '/twitter',
-        destination: 'https://twitter.com/gopalji_gaur',
+        destination: metadata.twitter,
         permanent: true
       },
       {
         source: '/github',
-        destination: 'https://github.com/gopaljigaur',
+        destination: metadata.github,
         permanent: true
       },
       {
         source: '/linkedin',
-        destination: 'https://www.linkedin.com/in/gopaljigaur',
+        destination: metadata.linkedin,
         permanent: true
       }
     ]

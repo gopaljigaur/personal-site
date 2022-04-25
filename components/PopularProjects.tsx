@@ -1,16 +1,17 @@
 import { ProjectCardSmall, ProjectCardBig, ProjectCardSmallTemplate, ProjectCardBigTemplate } from './ProjectCards';
 import fetcher from '../lib/fetcher';
 import useSWR from 'swr';
+import { PopularItem } from '../lib/types';
 
-export default function PopularProjects({cardType, type= false}) {
-  const { data } = useSWR<any>('/api/views/project/popular', fetcher);
+export default function PopularProjects({ cardSize }) {
+  const { data } = useSWR<Array<PopularItem>>('/api/project/popular', fetcher);
   const items = data ? data : null;
   const cardGradients = [
     "from-[#D8B4FE] to-[#818CF8]",
     "from-[#6EE7B7] via-[#3B82F6] to-[#9333EA]",
     "from-[#FDE68A] via-[#FCA5A5] to-[#FECACA]"
   ];
-  if(cardType === 'big') {
+  if(cardSize === 'big') {
     return (
       <>
       {
@@ -26,12 +27,13 @@ export default function PopularProjects({cardType, type= false}) {
                   logo={item.logo}
                   url={item.url}
                   {
-                  ...{
-                    popular: type,
-                    gradient: cardGradients[index],
-                    count: item.count
+                    ...{
+                      popular: true,
+                      gradient: cardGradients[index],
+                      count: item.count
+                    }
                   }
-                }
+
                 />
               )
             })
@@ -55,7 +57,9 @@ export default function PopularProjects({cardType, type= false}) {
                     slug={item.slug}
                     url={item.url}
                     count={item.count}
-                    gradient={cardGradients[index]} />
+                    gradient={cardGradients[index]}
+                    popular={true}
+                  />
                 )
               })
             ) : <p className="mb-4 text-gray-600 dark:text-gray-400">No items found.</p>

@@ -8,7 +8,7 @@ import { NextSeo } from 'next-seo';
 import Footer from 'components/Footer';
 import MobileMenu from 'components/MobileMenu';
 import { MoonIcon, ScrollTopButton, SunIcon } from './SvgIcons';
-import metadata from '../data/metadata.json';
+import metadata from 'data/metadata.json';
 function NavItem({ href, text }) {
   const router = useRouter();
   const isActive = router.asPath === href;

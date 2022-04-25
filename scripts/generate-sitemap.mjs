@@ -1,13 +1,13 @@
 import { writeFileSync } from 'fs';
 import { globby } from 'globby';
 import prettier from 'prettier';
-import { allMetadata } from '../.contentlayer/generated/allMetadata.mjs';
+import metadata from '../data/metadata.json';
+
+const site_url = metadata.site_url;
+const meta_title = metadata.meta_title;
 import { allProjects } from '../.contentlayer/generated/allProjects.mjs';
 import { allBlogs } from '../.contentlayer/generated/allBlogs.mjs';
-
-const site_url = allMetadata[0].site_url;
-const meta_title = allMetadata[0].meta_title;
-const meta_description = allMetadata[0].meta_description;
+const meta_description = metadata.meta_description;
 
 async function generate() {
   const prettierConfig = await prettier.resolveConfig('./.prettierrc.js');

@@ -5,12 +5,12 @@ import fetcher from 'lib/fetcher';
 import { Views } from 'lib/types';
 
 export default function ViewCounter({ slug, type }) {
-  const { data } = useSWR<Views>(`/api/views/${type}/${slug}`, fetcher);
+  const { data } = useSWR<Views>(`/api/${type}/views/${slug}`, fetcher);
   const views = Number(data?.total);
 
   useEffect(() => {
     const registerView = () =>
-      fetch(`/api/views/${type}/${slug}`, {
+      fetch(`/api/${type}/views/${slug}`, {
         method: 'POST'
       });
 
