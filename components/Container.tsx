@@ -13,8 +13,7 @@ import NavEntries from 'components/NavEntries';
 
 function NavItem({ name, href }) {
   const router = useRouter();
-  const isActive = router.asPath === href;
-
+  const isActive = router.pathname === href;
   return (
     <NextLink href={href}>
       <a
