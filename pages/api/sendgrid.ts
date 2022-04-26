@@ -38,8 +38,8 @@ async function sendEmail(req, res) {
       );
       return res.status(403).json({ error: "Spam detected! If this was unintended, please contact me directly via email." });
     }
-  } catch (err) {
-    console.error('Something went wrong:', err.message);
+  } catch (e) {
+    console.error('Something went wrong:', e.message);
   }
 
   try {
@@ -50,7 +50,7 @@ async function sendEmail(req, res) {
       dynamicTemplateData: templateData,
       templateId: templateId,
     });
-  } catch (error) {
+  } catch (e) {
     res.setHeader(
       'Content-Type',
       'application/json'
@@ -59,7 +59,7 @@ async function sendEmail(req, res) {
       'X-Content-Type-Options',
       'nosniff'
     );
-    return res.status(error.statusCode || 500).json({ error: error.message });
+    return res.status(e.statusCode || 500).json({ error: e.message });
   }
   res.setHeader(
     'Content-Type',

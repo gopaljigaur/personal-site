@@ -36,4 +36,7 @@ export default async function totalViews(collection: string): Promise<Views>{
       total: Number(parseInt((blog_views ? blog_views.toString() : '0')) + parseInt((project_views ? project_views.toString() : '0').toString()))
     });
   }
+  else{
+    throw(new Error('Path not available'))
+  }
 }

@@ -6,7 +6,7 @@ import MetricCard from 'components/metrics/Card';
 import metadata from 'data/metadata.json';
 
 export default function AnalyticsCard() {
-  const { data, error } = useSWR<Views>('/api/all/views', fetcher);
+  const { data, error } = useSWR<Views>('/api/all/views', fetcher, { refreshInterval: 30000 });
   const pageViews = Number(data.total);
   const link = metadata.site_url;
 

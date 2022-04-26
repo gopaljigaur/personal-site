@@ -1,10 +1,15 @@
 import { GitHubStats } from 'lib/types';
+import metadata from 'data/metadata.json';
 
 export default async function githubStats():Promise<GitHubStats>{
+  const github_user = (new URL(metadata.github)).pathname;
+  const github_url = (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) ?
+      `https://${process.env.GITHUB_CLIENT_ID}:${process.env.GITHUB_CLIENT_SECRET}@api.github.com`
+      : 'https://api.github.com';
   try {
-    const userResponse = await fetch('https://api.github.com/users/gopaljigaur');
+    const userResponse = await fetch(`${github_url}/users${github_user}`);
     const userReposResponse = await fetch(
-      'https://api.github.com/users/gopaljigaur/repos?per_page=100'
+      `${github_url}/users${github_user}/repos?per_page=100`
     );
 
     const user = await userResponse.json();
