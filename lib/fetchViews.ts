@@ -10,12 +10,19 @@ export default async function fetchViews (
   } else if (type === 'project') {
     prisma_db = prisma.views_projects;
   }
+  else{
+    throw(new Error('Path not available'))
+  }
   const views = await prisma_db.findUnique({
     where: {
       slug
     }
   });
-  return({
-    total: Number(views.count)
-  });
+  if(views)
+    return({
+      total: Number(views.count)
+    });
+  else{
+    throw(new Error('Path not available'))
+  }
 }

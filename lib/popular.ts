@@ -15,6 +15,9 @@ export default async function fetchPopularItems (
     prisma_db = prisma.views_projects;
     collection = allProjects;
   }
+  else{
+    throw(new Error('Path not available'))
+  }
   try {
       const filter = await prisma_db.findMany({
         take: num,

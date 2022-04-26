@@ -6,7 +6,7 @@ import MetricCard from 'components/metrics/Card';
 import metadata from 'data/metadata.json';
 
 export default function GitHubCard() {
-  const { data, error } = useSWR<GitHubStats>('/api/github', fetcher);
+  const { data, error } = useSWR<GitHubStats>('/api/github', fetcher, { refreshInterval: 30000 });
 
   const stars = Number(data.stars);
   const link = metadata.github;

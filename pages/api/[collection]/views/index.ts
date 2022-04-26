@@ -6,11 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const valid_connections = ['blog', 'project', 'all'];
     const collection = req.query.collection.toString();
-    if (!(valid_connections.includes(collection))) {
-      return res.redirect(307, '/404');
-    }
     if (req.method === 'GET') {
       const views = await totalViews(collection);
       res.setHeader(
@@ -24,6 +20,6 @@ export default async function handler(
       return res.status(200).json(views);
     }
   } catch (e) {
-    return res.status(500).json({ message: e.message });
+    return res.status(e.statusCode || 500).json({ error: e.message });
   }
 }

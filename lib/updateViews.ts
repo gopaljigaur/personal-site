@@ -10,6 +10,9 @@ export default async function updateViews (
   } else if (type === 'project') {
     prisma_db = prisma.views_projects;
   }
+  else{
+    throw(new Error('Path not available'))
+  }
   const views = await prisma_db.upsert({
     where: { slug },
     create: {
@@ -21,7 +24,11 @@ export default async function updateViews (
       }
     }
   });
-  return({
-    total: Number(views.count)
-  });
+  if(views)
+    return({
+      total: Number(views.count)
+    });
+  else{
+    throw(new Error('Path not available'))
+  }
 }
