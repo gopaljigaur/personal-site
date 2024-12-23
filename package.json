@@ -22,7 +22,7 @@
     "date-fns": "2.28.0",
     "fathom-client": "3.4.1",
     "motion": "^10.6.2",
-    "next": "^12.1.0",
+    "next": "^14.2.15",
     "next-contentlayer": "0.1.2",
     "next-images": "^1.8.4",
     "next-seo": "^5.4.0",
